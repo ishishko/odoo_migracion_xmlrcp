@@ -47,7 +47,6 @@ class CreateXMLRCP:
             data.append(item)
             n = n + 1
             if n % 100 == 0: print('>>>>> Obtenidos',n, 'de', len(ids_list))
-            if n == 1: break
         print('----- Obtener Finalizado -----')
         print('----- Se han obtenido', n , 'de' , len(ids_list),'Registros -----')
         print('----- Initial sample -----')
@@ -57,7 +56,7 @@ class CreateXMLRCP:
         print('--------------------------------------------------------------')
         return data
     
-    # ---Leer Campos de lista de IDs---
+    # --- Crear Campos de lista ---
     def create_reg(self, data):
         print('--------------------------------------------------------------')
         print('----- Conectado con servidor:', self.common, '-----')
@@ -74,8 +73,7 @@ class CreateXMLRCP:
             registro = self.models.execute_kw( self.dbname, self.userID, self.pwd,
                     self.model, 'create', [reg])
             n = n + 1
-            print('----- Registro', n, 'creado <<<<<' )
-            print(">>>>>", registro, 'Creados <<<<<' )
+            if n % 100 == 0: print('>>>>> Obtenidos',n, 'de', len(data))
             data_created.append(registro)
         print('--------------------------------------------------------------')                    
         print("-----", len(data_created), 'Creados -----' )

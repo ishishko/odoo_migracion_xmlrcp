@@ -10,10 +10,9 @@ userO = 'admin'
 pwdO = 'gemi19nis'
 modelO = 'res.partner'
 conditionO = [['supplier', '=', True],['name', '!=' ,'']]
-field_listO = ['name', 'street', 'supplier', 'phone',
+field_listO = ['name', 'street', 'phone',
                'mobile', 'email', 'website', 'lang', 'weigth',
-               'patient', 'property_product_pricelist', 'main_id_number',
-               'categ_id']
+               'property_product_pricelist']
 
 clientes_origen = CreateXMLRCP( urlO, dbnameO, userO, pwdO, modelO )
 
