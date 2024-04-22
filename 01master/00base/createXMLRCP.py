@@ -47,6 +47,7 @@ class CreateXMLRCP:
             data.append(item)
             n = n + 1
             if n % 100 == 0: print('>>>>> Obtenidos',n, 'de', len(ids_list))
+            if n == 10: break
         print('----- Obtener Finalizado -----')
         print('----- Se han obtenido', n , 'de' , len(ids_list),'Registros -----')
         print('----- Initial sample -----')
@@ -73,7 +74,7 @@ class CreateXMLRCP:
             registro = self.models.execute_kw( self.dbname, self.userID, self.pwd,
                     self.model, 'create', [reg])
             n = n + 1
-            if n % 100 == 0: print('>>>>> Obtenidos',n, 'de', len(data))
+            if n % 100 == 0: print('>>>>> Creados',n, 'de', len(data))
             data_created.append(registro)
         print('--------------------------------------------------------------')                    
         print("-----", len(data_created), 'Creados -----' )
