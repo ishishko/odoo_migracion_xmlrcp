@@ -16,6 +16,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
+        self.tamano = 500
         self.start = self.__start()
 
     # --- Test conexion y UserID ---
@@ -29,8 +30,8 @@ class CreateXMLRCP:
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
     # --- Division de lista ----
-    def __div_list(self, lista, tamano=100) :
-        return [lista[n:n+tamano] for n in range(0,len(lista),tamano)]
+    def __div_list(self, lista) :
+        return [lista[n:n+self.tamano] for n in range(0,len(lista),self.tamano)]
     
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
@@ -120,7 +121,7 @@ class CreateXMLRCP:
         ids = self.search_ids(conditions)
         # divmos la lista de "ids" en una lista de sublistas "div"
         div = self.__div_list(ids)
-        if len(ids)>= 100 :
+        if len(ids)>= self.tamano :
             answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
             # si desea continuar debe seleccionar "y" o finaliza
             if answer != 'y' : sys,exit()
@@ -138,10 +139,10 @@ class CreateXMLRCP:
                 n_reg += len(data)
                 print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<')
                 n += 1
-                if n_reg >= 1000 : n = len(div)
+                if n_reg >= 10000 : n = len(div)
 
             print('----- Obtener Finalizado -----')
-            print('----- Se han obtenido', n_reg , 'de' , len(mass_data),'Registros -----')
+            print('----- Se han obtenido', n_reg , 'de' , len(ids),'Registros -----')
             print('----- Initial sample -----')
             print('>>>>>', data[0], '<<<<<')
             print('----- Final sample -----')
@@ -170,18 +171,24 @@ class CreateXMLRCP:
         print('--------------------------------------------------------------')
         continua = input('<<<<< Continuar con la escritura de datos? (y/n) >>>>> ')
         if continua != 'y': sys.exit()
+        print('--------------------------------------------------------------')
         print('------------------- Creando Registros ------------------------')
-        data_created = []
+        div = self.__div_list(data)
         n = 0
-        for reg in data:
-            registro = self.models.execute_kw( self.dbname, self.userID, self.pwd,
-                    self.model, 'create', [reg])
-            n = n + 1
-            if n % 100 == 0: print('>>>>> Creados',n, 'de', len(data))
-            data_created.append(registro)
-        print('--------------------------------------------------------------')                    
-        print("-----", len(data_created), 'Creados -----' )
+        for regs in div :
+            self.models.execute_kw( self.dbname, self.userID, self.pwd,
+                    self.model, 'create', regs)
+            n += len(regs)
+            print('>>>>> Creados',n, 'de', len(data),'<<<<<')        
+        print('--------------------------------------------------------------')
+        print('----- Initial sample -----')
+        print('>>>>>', data[0], '<<<<<')
+        print('----- Final sample -----')
+        print('>>>>>', data[(len(data))-1], '<<<<<')
+        print("-----", len(data), 'Registros creados -----' )
+        print('--------------------------------------------------------------')
         print('------------- Creacion de Registros  Finalizada --------------')
+        print('--------------------------------------------------------------')
 
     # --- Update datos Migracion ---
     def update_reg_keys(self, data_list ,old_key, new_key ) :
@@ -214,11 +221,22 @@ class CreateXMLRCP:
         pass
     
     def models_use(self, flied_list) :
+        # # hago un search_read con todos los campos del modelo
         # data= self.mass_read_data([['name','!=','']], flied_list)
-        lista = flied_list.copy()
-        newlist = []
-        n = 0
-        for item in lista :
-            newlist.append({ lista [n] : 0})
-            n += 1
-        print(newlist)
+        # lista = flied_list.copy()
+        # newlist = []
+        # n = 0
+        # # Creo un diccionario con cada campo y cantidad
+        # for item in lista :
+        #     newlist.append({ lista [n] : 0})
+        #     n += 1
+        # print(newlist)
+        
+        # n = 0
+        # # Itero todos los registros de la lista de datos
+        # for reg in data :
+        # # Por cada registro itero la lista de campos y busco campos con datos o campos true
+        #     for campo in newlist :
+        #         if data[campo]
+        pass
+
