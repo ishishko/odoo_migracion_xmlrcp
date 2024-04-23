@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import sys
+import time
 from xmlrpc import client
 
 
@@ -17,8 +18,8 @@ class CreateXMLRCP:
         self.models = ""
         self.start = self.__start()
 
-    # --Test conexion y UserID--
-    def __start(self):
+    # --- Test conexion y UserID ---
+    def __start(self) :
         self.common = client.ServerProxy('{}/xmlrpc/2/common'.format(self.url))
         print('--------------------------------------------------------------')
         print ('Test: Conexion OK. Server:', self.common)
@@ -28,15 +29,17 @@ class CreateXMLRCP:
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
     
-    # --Obtener IDs--
-    def search_ids(self, conditions=[['name', '!=', '']]):
+    # --- Obtener IDs ---
+    def search_ids(self, conditions=[['name', '!=', '']]) :
         data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, 'search', 
         [conditions])
         print("Obtener registros OK. Registros obtenidos:", len(data))
         return data
     
-    # ---Leer Campos de lista de IDs---
-    def read_data(self, ids_list, field_list = ['name','street'] ):
+    # --- Leer Campos de lista de IDs ---
+    # ids_list: lista de ids de registros a leer
+    # field_list: lista de campos a obtener de cada registro
+    def read_data(self, ids_list, field_list = ['name'] ) :
         print('--------------------------------------------------------------')
         print("----- Obteniedo datos de lista -----")
         data = []
@@ -57,8 +60,31 @@ class CreateXMLRCP:
         print('--------------------------------------------------------------')
         return data
     
+    # --- Obtener IDs ---
+    # --- Leer Campos de lista de IDs ---
+    # ids_list: lista de ids de registros a leer
+    # field_list: lista de campos a obtener de cada registro
+    def search_read_data( self, conditions=[['name', '!=', '']], fields=['name'] ):
+        print()
+        ids = self.search_ids()
+        input('<<<<< Continuar con la escritura de datos? (y/n) >>>>> ')
+
+        if len(ids) > 1000 :
+            input('<<<<< Continuar con la escritura de datos? (y/n) >>>>> ')
+        data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
+               'search_read', [conditions], {'fields': fields, 'limit': 1000 })
+        print('----- Obtener Finalizado -----')
+        print('----- Se han obtenido', len(data) , 'de' , len(data),'Registros -----')
+        print('----- Initial sample -----')
+        print('>>>>>', data[0], '<<<<<')
+        print('----- Final sample -----')
+        print('>>>>>', data[(len(data))-1], '<<<<<')
+        print('--------------------------------------------------------------')
+        return data
+
     # --- Crear Campos de lista ---
-    def create_reg(self, data):
+    # data: lista de registros a crear
+    def create_reg(self, data) :
         print('--------------------------------------------------------------')
         print('----- Conectado con servidor:', self.common, '-----')
         print('----- Conectado con BBDD:', self.dbname, '-----')
@@ -79,3 +105,54 @@ class CreateXMLRCP:
         print('--------------------------------------------------------------')                    
         print("-----", len(data_created), 'Creados -----' )
         print('------------- Creacion de Registros  Finalizada --------------')
+
+    # --- Obtener IDs ---
+    # --- Leer Campos de lista de IDs ---
+    # ids_list: lista de ids de registros a leer
+    # field_list: lista de campos a obtener de cada registro
+    def mass_read_data( self, conditions=[['name', '!=', '']], fields=['name'] ):
+        print()
+        ids = self.search_ids(conditions)
+        if len(ids)>= 1000 :
+            answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
+            if answer != 'y' : sys,exit()
+            mass_data = []
+            ni = 0
+            nf = 1000
+            while ni <= len(ids):
+                time.sleep(3)
+                data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
+                    'search_read', [conditions], {'fields': fields , 'offset':ni,'limit':nf })
+                mass_data = mass_data + data
+                print('>>>>> Obtenidos',nf, 'de', len(ids),'<<<<<')
+                nf += len(data) - ni
+                ni += 1000
+            print('----- Obtener Finalizado -----')
+            print('----- Se han obtenido', nf , 'de' , len(mass_data),'Registros -----')
+            print('----- Initial sample -----')
+            print('>>>>>', data[0], '<<<<<')
+            print('----- Final sample -----')
+            print('>>>>>', data[(len(data))-1], '<<<<<')
+            print('--------------------------------------------------------------')
+        else :
+            data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
+               'search_read', [conditions], {'fields': fields})
+        
+
+        print('----- Obtener Finalizado -----')
+        print('----- Se han obtenido', len(data) , 'de' , len(data),'Registros -----')
+        print('----- Initial sample -----')
+        print('>>>>>', data[0], '<<<<<')
+        print('----- Final sample -----')
+        print('>>>>>', data[(len(data))-1], '<<<<<')
+        print('--------------------------------------------------------------')
+        return data
+
+    def __mass_read_data(self):
+        pass
+    # --- Update datos Migracion ---
+    #
+    # def update_reg_country(self, conditions ) :
+    #     data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, 'search', 
+    #     [conditions])
+
