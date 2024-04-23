@@ -39,15 +39,8 @@ def dividirlist(lista, tamano):
 
 # lista= [1,2,3,4,5,6,7,8,9,10,11,12,13]
 div= dividirlist(lista,100)
-print(lista)
-print()
-print(div)
-print()
-print(len(lista))
-print(len(div))
-print(len(lista)/5)
 
 condicion = [['id' , 'in' , div[0]]]
-datosClientes = clientes_origen.mass_read_data(condicion)
+datosClientes = clientes_origen.mass_read_data(conditionOrigen)
 
 

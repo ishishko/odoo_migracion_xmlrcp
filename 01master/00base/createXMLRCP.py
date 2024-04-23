@@ -28,7 +28,8 @@ class CreateXMLRCP:
         self.models = models = client.ServerProxy('{}/xmlrpc/2/object'.format(self.url))
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
-    
+    def __div_list(self, lista, tamano=100) :
+        return [lista[n:n+tamano] for n in range(0,len(lista),tamano)]
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
         data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, 'search', 
@@ -113,20 +114,23 @@ class CreateXMLRCP:
     def mass_read_data( self, conditions=[['name', '!=', '']], fields=['name'] ):
         print()
         ids = self.search_ids(conditions)
+        div = self.__div_list(ids)
         if len(ids)>= 1000 :
             answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
             if answer != 'y' : sys,exit()
             mass_data = []
             ni = 0
             nf = 1000
+            n = 0
             while ni <= len(ids):
-                time.sleep(3)
+                condicion = [['id' , 'in' , div[n]]]
                 data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
-                    'search_read', [conditions], {'fields': fields , 'offset':ni,'limit':nf })
+                    'search_read', [condicion], {'fields': fields , 'offset':ni,'limit':nf })
                 mass_data = mass_data + data
                 print('>>>>> Obtenidos',nf, 'de', len(ids),'<<<<<')
                 nf += len(data) - ni
                 ni += 1000
+                n += 1
             print('----- Obtener Finalizado -----')
             print('----- Se han obtenido', nf , 'de' , len(mass_data),'Registros -----')
             print('----- Initial sample -----')
@@ -135,6 +139,8 @@ class CreateXMLRCP:
             print('>>>>>', data[(len(data))-1], '<<<<<')
             print('--------------------------------------------------------------')
         else :
+            div = self.__div_list(ids)
+            condicion = [['id' , 'in' , div[0]]]
             data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
                'search_read', [conditions], {'fields': fields})
         
@@ -144,7 +150,7 @@ class CreateXMLRCP:
         print('----- Initial sample -----')
         print('>>>>>', data[0], '<<<<<')
         print('----- Final sample -----')
-        print('>>>>>', data[(len(data))-1], '<<<<<')
+        print('>>>>>', len(data), '<<<<<')
         print('--------------------------------------------------------------')
         return data
 
