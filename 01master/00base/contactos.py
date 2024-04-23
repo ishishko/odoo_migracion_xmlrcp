@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from importContact import CreateXMLRCP
+from createXMLRCP import CreateXMLRCP
 
 
 # BBDD Origen
@@ -28,6 +28,6 @@ clientes_destino = CreateXMLRCP( urlD, dbnameD, userD, pwdD, modelD )
 
 
 ids_origen = clientes_origen.search_ids( conditionO )
-data_origen = clientes_origen.read_data(ids_origen, field_listO)
+data_origen = clientes_origen.mass_read_data(ids_origen, field_listO)
 
 clientes_destino.create_reg(data_origen)
