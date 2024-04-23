@@ -28,7 +28,7 @@ class CreateXMLRCP:
         self.models = models = client.ServerProxy('{}/xmlrpc/2/object'.format(self.url))
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
-    def __div_list(self, lista, tamano=100) :
+    def __div_list(self, lista, tamano=2000) :
         return [lista[n:n+tamano] for n in range(0,len(lista),tamano)]
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
@@ -119,27 +119,26 @@ class CreateXMLRCP:
             answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
             if answer != 'y' : sys,exit()
             mass_data = []
-            ni = 0
-            nf = 1000
+            n_reg =0
             n = 0
-            while ni <= len(ids):
+            while n < len(div):
+                # time.sleep(1)
                 condicion = [['id' , 'in' , div[n]]]
                 data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
-                    'search_read', [condicion], {'fields': fields , 'offset':ni,'limit':nf })
+                    'search_read', [condicion], {'fields': fields })
                 mass_data = mass_data + data
-                print('>>>>> Obtenidos',nf, 'de', len(ids),'<<<<<')
-                nf += len(data) - ni
-                ni += 1000
+                n_reg += len(data)
+                print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<')
                 n += 1
+
             print('----- Obtener Finalizado -----')
-            print('----- Se han obtenido', nf , 'de' , len(mass_data),'Registros -----')
+            print('----- Se han obtenido', n_reg , 'de' , len(mass_data),'Registros -----')
             print('----- Initial sample -----')
             print('>>>>>', data[0], '<<<<<')
             print('----- Final sample -----')
             print('>>>>>', data[(len(data))-1], '<<<<<')
             print('--------------------------------------------------------------')
         else :
-            div = self.__div_list(ids)
             condicion = [['id' , 'in' , div[0]]]
             data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
                'search_read', [conditions], {'fields': fields})

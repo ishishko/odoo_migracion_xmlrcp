@@ -9,10 +9,10 @@ dbnameOrigen = 'geminis'
 userOrigen = 'admin'
 pwdOrigen = 'gemi19nis'
 # Model de BBDD afectado
-modelOrigen = 'res.partner'
+modelOrigen = 'account.invoice'
 # Condicion requeriada para search
-conditionOrigen = [['name', '!=' ,''],['supplier', '=' , True]]
-field_listOrigen = ['name']
+conditionOrigen = [['display_name', '!=' ,'']]
+field_listOrigen = ['display_name']
 # Creacion de conexion origen
 clientes_origen = CreateXMLRCP( urlOrigen, dbnameOrigen, userOrigen,
                                 pwdOrigen, modelOrigen )
@@ -32,15 +32,15 @@ clientes_origen = CreateXMLRCP( urlOrigen, dbnameOrigen, userOrigen,
 
 lista = clientes_origen.search_ids(conditionOrigen)
 
-def dividirlist(lista, tamano):
-    return [lista[n:n+tamano] for n in range(0,len(lista),tamano)]
+# def dividirlist(lista, tamano):
+#     return [lista[n:n+tamano] for n in range(0,len(lista),tamano)]
 
 
 
-# lista= [1,2,3,4,5,6,7,8,9,10,11,12,13]
-div= dividirlist(lista,100)
+# # lista= [1,2,3,4,5,6,7,8,9,10,11,12,13]
+# div= dividirlist(lista,100)
 
-condicion = [['id' , 'in' , div[0]]]
-datosClientes = clientes_origen.mass_read_data(conditionOrigen)
+# condicion = [['id' , 'in' , div[0]]]
+datosClientes = clientes_origen.mass_read_data(conditionOrigen, field_listOrigen)
 
 
