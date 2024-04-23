@@ -210,5 +210,15 @@ class CreateXMLRCP:
         print('--------------------------------------------------------------')
         return data_list
             
-    def update_reg_values(self, data_list, old_model):
+    def update_reg_values(self, data_list, old_model) :
         pass
+    
+    def models_use(self, flied_list) :
+        # data= self.mass_read_data([['name','!=','']], flied_list)
+        lista = flied_list.copy()
+        newlist = []
+        n = 0
+        for item in lista :
+            newlist.append({ lista [n] : 0})
+            n += 1
+        print(newlist)
