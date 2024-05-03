@@ -11,8 +11,7 @@ pwdOrigen = 'gemi19nis'
 modelOrigen = 'res.partner'
 # Condicion requeriada para search
 conditionOrigen = [['name', '!=' ,'']]
-field_listOrigen = ['name', 'street', 'phone', 'afip_responsability_type_id',
-               'mobile', 'email', 'website', 'lang', 'weigth', 'main_id_numbre'
+field_listOrigen = ['name', 'street', 'phone', 'mobile', 'email', 'website', 'lang', 'weigth', 'main_id_numbre'
                'property_product_pricelist',]
 # Creacion de conexion origen
 clientes_origen = CreateXMLRCP( urlOrigen, dbnameOrigen, userOrigen,
@@ -31,21 +30,15 @@ field_listDestino = ['name', 'street', 'phone',
                'mobile', 'email', 'website', 'lang', 'weigth',
                'property_product_pricelist']
 # Creacion de conexion Destino
-clientes_Destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
-                                pwdDestino, modelDestino )
+# clientes_Destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
+#                                 pwdDestino, modelDestino )
 
 # Obtengo todos registros en una lista
-# datosClientes = clientes_origen.mass_read_data(conditionOrigen, field_listOrigen)
+# datosClientes = clientes_origen.read_data([16376])
+datosClientes = clientes_origen.mass_read_data( field_listOrigen, conditionOrigen)
 # Actualizo los campos que deseo
 # datosClientes = clientes_origen.update_reg_keys(datosClientes,'id','old_id')
 
-# crearregistros = clientes_Destino.mass_create_reg(datosClientes)
-proxy = xmlrpc.client.ServerProxy("http://google.com/")
-try:
-    proxy.some_method()
-except xmlrpc.client.ProtocolError as err:
-    print("A protocol error occurred")
-    print("URL: %s" % err.url)
-    print("HTTP/HTTPS headers: %s" % err.headers)
-    print("Error code: %d" % err.errcode)
-    print("Error message: %s" % err.errmsg)
+# crearregistros = clientes_Destino.create_reg(datosClientes)
+# crearregistros = clientes_Destino.mass_create_reg2(datosClientes)
+# lista_campos = clientes_origen.models_use()

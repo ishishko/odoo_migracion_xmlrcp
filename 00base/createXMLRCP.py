@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 import sys
 import time
+import requests
 from xmlrpc import client
+from threading import Thread
 
 
 # --- Para importar contactos ---
@@ -16,7 +18,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 500
+        self.tamano = 2000
         self.start = self.__start()
 
     # --- Test conexion y UserID ---
@@ -26,7 +28,7 @@ class CreateXMLRCP:
         print ('Test: Conexion OK. Server:', self.common)
         self.userID = self.common.authenticate(self.dbname,self.user,self.pwd,{})
         print ("COMMON OK. Usuario Autenticado. User ID:", self.userID)
-        self.models = models = client.ServerProxy('{}/xmlrpc/2/object'.format(self.url))
+        self.models = client.ServerProxy('{}/xmlrpc/2/object'.format(self.url))
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
     # --- Division de lista ----
@@ -119,11 +121,21 @@ class CreateXMLRCP:
     def mass_read_data( self, conditions=[['name', '!=', '']], fields=['name'] ):
         # buscamos ids para verificar migracion masiva
         ids = self.search_ids(conditions)
+
+        #eliminar campo corrupto-----------------
+        id_corrupt = 0
+        n = 0
+        for id in ids:
+            if id == 16376 : id_corrupt = n
+            n += 1
+        del ids[id_corrupt]
+        #-----------------------------------------
+
         # divmos la lista de "ids" en una lista de sublistas "div"
         div = self.__div_list(ids)
         if len(ids)>= self.tamano :
-            answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
-            # si desea continuar debe seleccionar "y" o finaliza
+            # answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
+            # # si desea continuar debe seleccionar "y" o finaliza
             if answer != 'y' : sys,exit()
             mass_data = []
             n_reg =0
@@ -139,7 +151,7 @@ class CreateXMLRCP:
                 n_reg += len(data)
                 print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<')
                 n += 1
-                if n_reg >= 10000 : n = len(div)
+                # if n_reg >= 1000 : n = len(div)
 
             print('----- Obtener Finalizado -----')
             print('----- Se han obtenido', n_reg , 'de' , len(ids),'Registros -----')
@@ -147,7 +159,9 @@ class CreateXMLRCP:
             print('>>>>>', data[0], '<<<<<')
             print('----- Final sample -----')
             print('>>>>>', mass_data[(len(mass_data))-1], '<<<<<')
+            print('>>>>>', (len(mass_data))-1, '<<<<<')
             print('--------------------------------------------------------------')
+            print(mass_data[0])
             return mass_data
         else :
             condicion = [['id' , 'in' , div[0]]]
@@ -220,23 +234,39 @@ class CreateXMLRCP:
     def update_reg_values(self, data_list, old_model) :
         pass
     
-    def models_use(self, flied_list) :
-        # # hago un search_read con todos los campos del modelo
-        # data= self.mass_read_data([['name','!=','']], flied_list)
-        # lista = flied_list.copy()
-        # newlist = []
-        # n = 0
-        # # Creo un diccionario con cada campo y cantidad
-        # for item in lista :
-        #     newlist.append({ lista [n] : 0})
-        #     n += 1
-        # print(newlist)
+    def models_use(self) :
+        # Obtener datos modelo
+        # hago un search_read con todos los campos del modelo
+        fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,
+                      self.model, 'fields_get', [[]])
         
+        # Creo un diccionario con cada campo
+        fields_name = []
+
+        # print(fields_list['name'])
+        for field in fields_list :
+            fields_name.append(field)    
+        # print('--------------------------------------------------------------')
+        # print('----- Se han Obtenido', len(fields_name), 'campos -----')
+        # print('--------------------------------------------------------------')
+        
+        # # Obtendo todos los registros COMPLETOS de la BBDD
+        # self.tamano = 5000
+        for field in fields_name:
+            print(field)
+        #     print('--------------------------------------------------------------')
+        #     print('----- Obteniedo los valores de', field, ' -----')
+        #     print('--------------------------------------------------------------')
+        #     data = self.mass_read_data([['name', '!=', '']],field)
+        #     print('--------------------------------------------------------------')
+        #     print('----- Se han Obtenido los valores de', field, ' -----')
+        #     print('--------------------------------------------------------------')
+        # print(len(fields_name))
         # n = 0
-        # # Itero todos los registros de la lista de datos
-        # for reg in data :
-        # # Por cada registro itero la lista de campos y busco campos con datos o campos true
-        #     for campo in newlist :
-        #         if data[campo]
-        pass
+        # while n < 4 :
+        #     print(fields_list["name"])
+        #     n += 1
+        
+        # print(fields_name)
+        
 
