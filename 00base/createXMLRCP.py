@@ -18,7 +18,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 1000
+        self.tamano = 10
         self.start = self.__start()
 
     # --- Test conexion y UserID ---
@@ -254,16 +254,13 @@ class CreateXMLRCP:
         fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,
                       self.model, 'fields_get', [[]])
         
-        # Creo un diccionario con cada campo
-        fields_name = []
-
-        # print(fields_list['name'])
-        for field in fields_list :
-            fields_name.append(field)    
+        # Iteramos las key y la guardamos como lista
+        fields_name = list(fields_list.keys())
+        fields_name = fields_name[:5]
         print('--------------------------------------------------------------')
         print('----- Se han Obtenido', len(fields_name), 'campos -----')
         print('--------------------------------------------------------------')
-        
+
         # buscamos ids para verificar migracion masiva
         ids = self.search_ids(conditions)
         #eliminar campo corrupto-----------------
@@ -273,11 +270,44 @@ class CreateXMLRCP:
             if id == 16376 : id_corrupt = n
             n += 1
         del ids[id_corrupt]
-
+        #-----------------------------------------
         # Incremento tamano de lotes para lectura de a un campo
-        tamano = self.tamano * 5
+        tamano = self.tamano * 1
         div = self.__div_list(ids, tamano)
 
+        # listas de uso
+        field_use = []
+        field_no_use = []
+       
+        # Iteracion de Campos de modelo
+        for field in fields_name:
+            key_use = 0
+            n_use = 0
+            n_reg = 0
+            n = 0
+            mass_data = []
+            print('--------------------------------------------------------------')
+            print('----- Obteniendo datos del campo', field, '. -----')
+            
+            # Iteracion de Ids obtenidas
+            while n < len(div):
+                n_reg += len(div[n])
+                data = self.__mass_read_data(div[n], [field])
+                print('>>>>> Obtenidos', n_reg ,'registros de', len(ids), '. <<<<<')
+                mass_data = mass_data + data
+                n += 1
+                if n_reg == 20 : n = len(div)
+                # print (data.keys())
+                for dat in data :
+                    print(dat.keys()[0])
+            # Verifica Uso del Campo
+            # for key, value in mass_data :
+                
+            #     if (key) (value != False) and (value != "") and (value != []):
+
+
+        # for field in fields_name :
+            # fields_name.append(field)    
         # # Obtengo todos los registros COMPLETOS de la BBDD
         
         # for field in fields_name:
