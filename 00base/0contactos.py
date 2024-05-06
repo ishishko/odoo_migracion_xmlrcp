@@ -35,10 +35,10 @@ field_listDestino = ['name', 'street', 'phone',
 
 # Obtengo todos registros en una lista
 # datosClientes = clientes_origen.read_data([16376])
-datosClientes = clientes_origen.mass_read_data( conditionOrigen, field_listOrigen)
+# datosClientes = clientes_origen.mass_read_data( conditionOrigen, field_listOrigen)
 # Actualizo los campos que deseo
 # datosClientes = clientes_origen.update_reg_keys(datosClientes,'id','old_id')
 
 # crearregistros = clientes_Destino.create_reg(datosClientes)
 # crearregistros = clientes_Destino.mass_create_reg2(datosClientes)
-# lista_campos = clientes_origen.models_use()
+lista_campos = clientes_origen.models_use()

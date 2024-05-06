@@ -18,7 +18,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 2000
+        self.tamano = 1000
         self.start = self.__start()
 
     # --- Test conexion y UserID ---
@@ -32,8 +32,10 @@ class CreateXMLRCP:
         print ('MODELS OK. Models:', self.models)
         print('--------------------------------------------------------------')
     # --- Division de lista ----
-    def __div_list(self, lista) :
-        return [lista[n:n+self.tamano] for n in range(0,len(lista),self.tamano)]
+    def __div_list(self, lista, tamanoDiv = None):
+        if tamanoDiv is None:
+            tamanoDiv = self.tamano
+        return [lista[n:n+tamanoDiv] for n in range(0, len(lista), tamanoDiv)]
     # --- Lectura de datos ---
     def __mass_read_data(self, div, fields=['name'] ) :
         # Recibe lista de Ids y utiliza condicion de Includos en "div"
@@ -42,6 +44,7 @@ class CreateXMLRCP:
         data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
             'search_read', [condicion], {'fields': fields })
         return data
+
 
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
@@ -245,7 +248,7 @@ class CreateXMLRCP:
     def update_reg_values(self, data_list, old_model) :
         pass
     
-    def models_use(self) :
+    def models_use(self, conditions = [['name', '!=' ,'']]) :
         # Obtener datos modelo
         # hago un search_read con todos los campos del modelo
         fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,
@@ -257,14 +260,28 @@ class CreateXMLRCP:
         # print(fields_list['name'])
         for field in fields_list :
             fields_name.append(field)    
-        # print('--------------------------------------------------------------')
-        # print('----- Se han Obtenido', len(fields_name), 'campos -----')
-        # print('--------------------------------------------------------------')
+        print('--------------------------------------------------------------')
+        print('----- Se han Obtenido', len(fields_name), 'campos -----')
+        print('--------------------------------------------------------------')
         
-        # # Obtendo todos los registros COMPLETOS de la BBDD
-        # self.tamano = 5000
-        for field in fields_name:
-            print(field)
+        # buscamos ids para verificar migracion masiva
+        ids = self.search_ids(conditions)
+        #eliminar campo corrupto-----------------
+        id_corrupt = 0
+        n = 0
+        for id in ids:
+            if id == 16376 : id_corrupt = n
+            n += 1
+        del ids[id_corrupt]
+
+        # Incremento tamano de lotes para lectura de a un campo
+        tamano = self.tamano * 5
+        div = self.__div_list(ids, tamano)
+
+        # # Obtengo todos los registros COMPLETOS de la BBDD
+        
+        # for field in fields_name:
+        #     print(field)
         #     print('--------------------------------------------------------------')
         #     print('----- Obteniedo los valores de', field, ' -----')
         #     print('--------------------------------------------------------------')
