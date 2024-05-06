@@ -35,8 +35,14 @@ class CreateXMLRCP:
     def __div_list(self, lista) :
         return [lista[n:n+self.tamano] for n in range(0,len(lista),self.tamano)]
     # --- Lectura de datos ---
-    def __mass_read_data(self, div) :
-        
+    def __mass_read_data(self, div, fields=['name'] ) :
+        # Recibe lista de Ids y utiliza condicion de Includos en "div"
+        condicion = [['id' , 'in' , div]]
+        # realiza una consulta "search_read" con las Ids de "div" 
+        data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
+            'search_read', [condicion], {'fields': fields })
+        return data
+
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
         data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, 'search', 
@@ -144,11 +150,7 @@ class CreateXMLRCP:
             n = 0
             # recorre las sublistas dentro de "div"
             while n < len(div):
-                condicion = [['id' , 'in' , div[n]]]
-                # realiza una consulta "search_read" para cada sublista
-                data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
-                    'search_read', [condicion], {'fields': fields })
-                # agrega los registro de "data" a la lista final "mass_data"
+                data = self.__mass_read_data( div[n], fields )
                 mass_data = mass_data + data
                 n_reg += len(data)
                 print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<')
@@ -157,17 +159,16 @@ class CreateXMLRCP:
 
             print('----- Obtener Finalizado -----')
             print('----- Se han obtenido', n_reg , 'de' , len(ids),'Registros -----')
+            print('--------------------------------------------------------------')
             print('----- Initial sample -----')
             print('>>>>>', data[0], '<<<<<')
+            print('--------------------------------------------------------------')
             print('----- Final sample -----')
             print('>>>>>', mass_data[(len(mass_data))-1], '<<<<<')
-            print('>>>>>', (len(mass_data))-1, '<<<<<')
             print('--------------------------------------------------------------')
             return mass_data
         else :
-            condicion = [['id' , 'in' , div[0]]]
-            data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model,
-               'search_read', [conditions], {'fields': fields})
+            data = self.__mass_read_data(div[0], fields )
             print('----- Obtener Finalizado -----')
             print('----- Se han obtenido', len(data) , 'de' , len(data),'Registros -----')
             print('----- Initial sample -----')
@@ -207,26 +208,35 @@ class CreateXMLRCP:
 
     # --- Update datos Migracion ---
     def update_reg_keys(self, data_list ,old_key, new_key ) :
+        # Copiamos la posicion 0 sin modificar origen
         sample = data_list[0].copy()
+        # Cambia el valor de la key en la muestra
         sample[new_key] = sample.pop(old_key)
         print('--------------------------------------------------------------')
         print('----- Se han cargado', len(data_list) ,'registros -----')
+        print('--------------------------------------------------------------')
         print('----- Initial sample -----')
         print('>>>>>', data_list[0], '<<<<<')
+        print('--------------------------------------------------------------')
         print('----- Final sample -----')
         print('>>>>>', sample, '<<<<<')
+        print('--------------------------------------------------------------')
         start_up = input('<<<<< Actualizar todos los registros? (y/n) >>>>> ')
         if start_up != 'y' : sys.exit()
         n = 0
         print('----- Actualizando', old_key, 'por', new_key, 'en', len(data_list) ,' -----')
+        # Recorro diccionario
         for data in data_list :
+            # Cambia los valores de la key
             data[new_key] = data.pop(old_key)
             n += 1
         print('--------------------------------------------------------------')
         print('----- Update keys Finalizado -----')
         print('----- Se han modificado', n , 'de' , len(data_list),'Registros -----')
+        print('--------------------------------------------------------------')
         print('----- Initial sample -----')
         print('>>>>>', data_list[0], '<<<<<')
+        print('--------------------------------------------------------------')
         print('----- Final sample -----')
         print('>>>>>', data_list[(len(data_list))-1], '<<<<<')
         print('--------------------------------------------------------------')
