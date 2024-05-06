@@ -34,7 +34,9 @@ class CreateXMLRCP:
     # --- Division de lista ----
     def __div_list(self, lista) :
         return [lista[n:n+self.tamano] for n in range(0,len(lista),self.tamano)]
-    
+    # --- Lectura de datos ---
+    def __mass_read_data(self, div) :
+        
     # --- Obtener IDs ---
     def search_ids(self, conditions=[['name', '!=', '']]) :
         data = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, 'search', 
@@ -134,7 +136,7 @@ class CreateXMLRCP:
         # divmos la lista de "ids" en una lista de sublistas "div"
         div = self.__div_list(ids)
         if len(ids)>= self.tamano :
-            # answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
+            answer = input('<<<<< Continuar con la lectura de registros? (y/n) >>>>> ')
             # # si desea continuar debe seleccionar "y" o finaliza
             if answer != 'y' : sys,exit()
             mass_data = []
@@ -161,7 +163,6 @@ class CreateXMLRCP:
             print('>>>>>', mass_data[(len(mass_data))-1], '<<<<<')
             print('>>>>>', (len(mass_data))-1, '<<<<<')
             print('--------------------------------------------------------------')
-            print(mass_data[0])
             return mass_data
         else :
             condicion = [['id' , 'in' , div[0]]]

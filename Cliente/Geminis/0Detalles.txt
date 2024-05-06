@@ -1,0 +1,4 @@
+Importacion de clientes:
+    Consulta de modelo res.partner con erro en read de datos.
+    Se elimina registro ID=16376 INDEX=13455 por datos corruptos.
+
