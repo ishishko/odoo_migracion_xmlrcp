@@ -18,7 +18,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 10
+        self.tamano = 100
         self.start = self.__start()
 
     # --- Test conexion y UserID ---
@@ -125,6 +125,35 @@ class CreateXMLRCP:
         print("-----", len(data_created), 'Creados -----' )
         print('------------- Creacion de Registros  Finalizada --------------')
 
+    # Se crean registros en BBDD
+    def create_reg(self, data) :
+        print('--------------------------------------------------------------')
+        print('----- Conectado con servidor:', self.common, '-----')
+        print('----- Conectado con BBDD:', self.dbname, '-----')
+        print('----- Numero de registros:', len(data), '-----')
+        print('----- Modelo destino:', self.model, '-----')
+        print('--------------------------------------------------------------')
+        continua = input('<<<<< Continuar con la escritura de datos? (y/n) >>>>> ')
+        if continua != 'y': sys.exit()
+        print('--------------------------------------------------------------')
+        print('------------------- Creando Registros ------------------------')
+        div = self.__div_list(data)
+        n = 0
+        for regs in div :
+            self.models.execute_kw( self.dbname, self.userID, self.pwd,
+                    self.model, 'create', regs)
+            n += len(regs)
+            print('>>>>> Creados',n, 'de', len(data),'<<<<<')        
+        print('--------------------------------------------------------------')
+        print('----- Initial sample -----')
+        print('>>>>>', data[0], '<<<<<')
+        print('----- Final sample -----')
+        print('>>>>>', data[(len(data))-1], '<<<<<')
+        print("-----", len(data), 'Registros creados -----' )
+        print('--------------------------------------------------------------')
+        print('------------- Creacion de Registros  Finalizada --------------')
+        print('--------------------------------------------------------------')
+
     # --- Obtener IDs ---
     # --- Leer Campos de lista de IDs ---
     # conditions: Establecer condiciones del Search
@@ -181,36 +210,9 @@ class CreateXMLRCP:
             print('--------------------------------------------------------------')
             return data
 
-    def mass_create_reg(self, data) :
-        print('--------------------------------------------------------------')
-        print('----- Conectado con servidor:', self.common, '-----')
-        print('----- Conectado con BBDD:', self.dbname, '-----')
-        print('----- Numero de registros:', len(data), '-----')
-        print('----- Modelo destino:', self.model, '-----')
-        print('--------------------------------------------------------------')
-        continua = input('<<<<< Continuar con la escritura de datos? (y/n) >>>>> ')
-        if continua != 'y': sys.exit()
-        print('--------------------------------------------------------------')
-        print('------------------- Creando Registros ------------------------')
-        div = self.__div_list(data)
-        n = 0
-        for regs in div :
-            self.models.execute_kw( self.dbname, self.userID, self.pwd,
-                    self.model, 'create', regs)
-            n += len(regs)
-            print('>>>>> Creados',n, 'de', len(data),'<<<<<')        
-        print('--------------------------------------------------------------')
-        print('----- Initial sample -----')
-        print('>>>>>', data[0], '<<<<<')
-        print('----- Final sample -----')
-        print('>>>>>', data[(len(data))-1], '<<<<<')
-        print("-----", len(data), 'Registros creados -----' )
-        print('--------------------------------------------------------------')
-        print('------------- Creacion de Registros  Finalizada --------------')
-        print('--------------------------------------------------------------')
 
     # --- Update datos Migracion ---
-    def update_reg_keys(self, data_list ,old_key, new_key ) :
+    def update_data_keys(self, data_list ,old_key, new_key ) :
         # Copiamos la posicion 0 sin modificar origen
         sample = data_list[0].copy()
         # Cambia el valor de la key en la muestra
@@ -253,14 +255,38 @@ class CreateXMLRCP:
         # hago un search_read con todos los campos del modelo
         fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,
                       self.model, 'fields_get', [[]])
+        print (fields_list['zip'])
         
         # Iteramos las key y la guardamos como lista
         fields_name = list(fields_list.keys())
-        fields_name = fields_name[:5]
+        fields_name = fields_name
         print('--------------------------------------------------------------')
         print('----- Se han Obtenido', len(fields_name), 'campos -----')
         print('--------------------------------------------------------------')
 
+        # print(fields_name)
+        # print(fields_list['arba_alicuot_ids'])
+        
+        # # Busqueda campos especiales || Blacklist
+        fields_req = []
+        fields_RO = []
+        for field in fields_name :
+            # Buscando campos obligatorios
+            if fields_list[field]['required'] : fields_req.append(field)
+            # Buscamos campos readonly
+            if fields_list[field]['readonly'] : fields_RO.append(field)
+        # # print(fields_req)
+        # print(len(fields_req))
+        # # print(fields_RO)
+        # print(len(fields_RO))
+        fields_BL = fields_req + fields_RO
+        # print(len(fields_BL))
+        # print(len(fields_name))
+        fields_name_BL = [x for x in fields_name if x not in fields_BL]
+        # print(len(fields_name_BL))
+        # #----------------------------------------
+
+        
         # buscamos ids para verificar migracion masiva
         ids = self.search_ids(conditions)
         #eliminar campo corrupto-----------------
@@ -272,7 +298,7 @@ class CreateXMLRCP:
         del ids[id_corrupt]
         #-----------------------------------------
         # Incremento tamano de lotes para lectura de a un campo
-        tamano = self.tamano * 1
+        tamano = self.tamano * 2
         div = self.__div_list(ids, tamano)
 
         # listas de uso
@@ -280,32 +306,48 @@ class CreateXMLRCP:
         field_no_use = []
        
         # Iteracion de Campos de modelo
-        for field in fields_name:
-            key_use = 0
+        for field in fields_name_BL:
+            key_use = []
             n_use = 0
             n_reg = 0
             n = 0
             mass_data = []
+            default = ""
             print('--------------------------------------------------------------')
             print('----- Obteniendo datos del campo', field, '. -----')
             
-            # Iteracion de Ids obtenidas
+            # Iteracion de Ids obtenidas por campos
             while n < len(div):
+                n_use = 0
                 n_reg += len(div[n])
                 data = self.__mass_read_data(div[n], [field])
                 print('>>>>> Obtenidos', n_reg ,'registros de', len(ids), '. <<<<<')
                 mass_data = mass_data + data
                 n += 1
-                if n_reg == 20 : n = len(div)
+                if n_reg == 1000 : n = len(div)
                 # print (data.keys())
-                for dat in data :
-                    print(dat.keys()[0])
+                # for dat in data :
+                #     print(dat[field])
             # Verifica Uso del Campo
-            # for key, value in mass_data :
+            # print(mass_data)
+            for data in mass_data :
+                # print(data[field])
                 
-            #     if (key) (value != False) and (value != "") and (value != []):
+                if 'change_default' in fields_list.get(field, {}):
+                    default = fields_list[field]['change_default']
+                # print(default)
+                if (data[field] == default) or (data[field] == "") or (data[field] == []):
+                    pass
+                else :
+                    n_use += 1
+            # Agrego Campo a la lista de Uso
+            if n_use != 0 :
+                field_use.append({field : n_use})
 
-
+        for field in field_use :
+            print (field)        
+            
+        # -----------------------------------------------------------------------------------
         # for field in fields_name :
             # fields_name.append(field)    
         # # Obtengo todos los registros COMPLETOS de la BBDD
