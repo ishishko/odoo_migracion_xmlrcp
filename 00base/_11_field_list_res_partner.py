@@ -1,0 +1,65 @@
+field_system = ['calendar_last_notif_ack','create_date','create_uid',
+                'has_unreconciled_entries','invoice_warn','message_follower_ids',
+                'message_ids','message_is_follower','message_needaction',
+                'message_needaction_counter','message_partner_ids','other_document_type_ids',
+                'partner_share','partner_state','partner_state_enable','picking_warn',
+                'self','signup_expiration','signup_token','signup_type',
+                'signup_url','signup_valid','start_date','type','website_url'
+                'write_date','write_uid']
+
+field_no_need = ['activity_date_deadline',
+                 'activity_ids','activity_state','activity_summary',
+                 'bank_account_count','bank_ids','barcode',
+                 'categ_id','channel_ids','child_ids','commercial_partner_id',
+                 'commercial_partner_id','company_id','company_type',
+                 'contact_address','credit','debit','debt_balance',
+                 'display_name','gross_income_jurisdiction_ids',
+                 'gross_income_number','gross_income_type',
+                 'id_numbers','im_status','industry_id','invoice_ids',
+                 'invoice_warn','journal_item_count','last_update_padron',
+                 'meeting_count','meeting_ids','parent_id','parent_name',
+                 'pos_order_count','property_account_payable_id',
+                 'property_account_receivable_id','property_payment_term_id',
+                 'property_product_pricelist','property_supplier_payment_term_id',
+                 'purchase_warn','title','tz','tz_offset','vat',
+                 'website_message_ids']
+
+field_error = ['email_formatted']
+
+field_no_used = ['color', 'payment_token_count', 'contracts_count',
+                'meli_update_forbidden', 'purchase_order_count',
+                'category_id', 'employee', 'website_meta_title',
+                'last_website_so_id', 'property_account_position_id',
+                'team_id', 'event_count', 'message_last_post',
+                'website_meta_description', 'message_unread_counter',
+                'payment_token_ids', 'website_description',
+                'message_bounce', 'drei', 'property_purchase_currency_id',
+                'message_channel_ids', 'website_meta_keywords', 'date',
+                'integrante_soc_padron', 'message_unread', 'user_id',
+                'last_time_entries_checked', 'opt_out', 'picking_warn_msg',
+                'debit_limit', 'opportunity_count', 'sale_warn_msg', 
+                'arba_alicuot_ids', 'purchase_warn_msg', 'credit_limit', 
+                'website_short_description', 'company_name', 
+                'opportunity_ids', 'invoice_warn_msg', 'meli_order_id',
+                'meli_buyer_id', 'social_work', 
+                'property_delivery_carrier_id', 'contract_ids', 'meli_buyer']
+
+field_list_check = ['active','actividades_padron','actividad_monotributo_padron',
+                    'afip_responsability_type_id',
+                    'city','comment','commercial_company_name',
+                    'commercial_partner_country_id','country_id',
+                    'cuit','currency_id','customer','email','empleador_padron',
+                    'estado_padron','formated_cuit','function','image',
+                    'image_medium','image_small','imp_ganancias_padron',
+                    'imp_iva_padron','impuestos_padron','is_company',
+                    'lang','main_id_category_id','main_id_number','mobile',
+                    'monotributo_padron','name','nro_socio','patient',
+                    'property_stock_customer','property_stock_supplier',
+                    'payable_debt_ids','phone','receivable_debt_ids',
+                    'ref','ref_company_ids','sale_order_count',
+                    'sale_order_ids','sale_warn','state_id','street',
+                    'street2','supplier','supplier_invoice_count',
+                    'total_invoiced','trust','user_ids','website',
+                    'website_published','weight','zip']
+
+field_ignore = field_system + field_no_need + field_error + field_no_used

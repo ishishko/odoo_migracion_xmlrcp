@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import xmlrpc.client
 from createXMLRCP import CreateXMLRCP
+from _11_field_list_res_partner import field_list_check
 
 # BBDD Origen // Configuracion de conexion y modelo afectado.
 urlOrigen = 'https://geminis.ntsystemwork.com.ar/'
@@ -11,6 +12,7 @@ pwdOrigen = 'gemi19nis'
 modelOrigen = 'res.partner'
 # Condicion requeriada para search
 conditionOrigen = [['name', '!=' ,'']]
+
 field_listOrigen = ['name', 'street', 'phone', 'mobile', 'email', 'website', 'lang', 'weigth', 'main_id_numbre'
                'property_product_pricelist',]
 # Creacion de conexion origen
@@ -30,8 +32,8 @@ field_listDestino = ['name', 'street', 'phone',
                'mobile', 'email', 'website', 'lang', 'weigth',
                'property_product_pricelist']
 # Creacion de conexion Destino
-# clientes_destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
-#                                 pwdDestino, modelDestino )
+clientes_destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
+                                pwdDestino, modelDestino )
 
 # Obtengo todos registros en una lista
 # datosClientes = clientes_origen.read_data([16376])
@@ -41,6 +43,7 @@ field_listDestino = ['name', 'street', 'phone',
 
 # crearregistros = clientes_Destino.create_reg(datosClientes)
 # crearregistros = clientes_Destino.mass_create_reg2(datosClientes)
-lista_campos_origen = clientes_origen.models_use()
+# lista_campos_origen = clientes_origen.models_use()
 # lista_campos_destino = clientes_destino.models_use()
 # clientes_origen.models_compare()
+clientes_destino.models_compare_fields(field_list_check)
