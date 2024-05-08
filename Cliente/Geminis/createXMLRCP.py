@@ -292,8 +292,7 @@ class CreateXMLRCP:
         # listas de uso
         field_use = []
         field_no_use = []
-        n_fields = 0
-
+       
         # Iteracion de Campos de modelo
         for field in fields_name_BL:
             key_use = []
@@ -325,8 +324,6 @@ class CreateXMLRCP:
             # Agrego Campo a la lista de Uso
             if n_use != 0 :
                 field_use.append({field : n_use})
-            else :
-                field_no_use.append(field)
         print('--------------------------------------------------------------')
 
         # Ordena los datos por key y los imprime
@@ -335,11 +332,11 @@ class CreateXMLRCP:
             key = next(iter(field))
             valor = next(iter(field.values()))
             print('>>>>>',f"{key}: {valor}")
+
         print('--------------------------------------------------------------')
         print('----- Campos utilizado por modelo', len(field_use), '-----')
         print('--------------------------------------------------------------')
-        print('>>>> Lista de vampos sin usar:', field_no_use )
-        print('--------------------------------------------------------------')
+
 
     def models_compare(self) :
         fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,

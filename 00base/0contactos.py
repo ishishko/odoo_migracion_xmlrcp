@@ -18,10 +18,10 @@ clientes_origen = CreateXMLRCP( urlOrigen, dbnameOrigen, userOrigen,
                                 pwdOrigen, modelOrigen )
 
 # BBDD Destino // Configuracion de conexion y modelo afectado.
-urlDestino = 'https://ortopediageminis-xmlrpc-12821112.dev.odoo.com/'
-dbnameDestino = 'ortopediageminis-xmlrpc-12821112'
+urlDestino = 'https://ortopediageminis-pruebas-pagos-12791939.dev.odoo.com/'
+dbnameDestino = 'ortopediageminis-pruebas-pagos-12791939'
 userDestino = 'admin'
-pwdDestino = '6da60e1559204080571e99d04b550de159126985'
+pwdDestino = '258c94152632f1bd8980e7b6d6f9ec9d3345e4cc'
 # Model de BBDD afectado
 modelDestino = 'res.partner'
 # Condicion requeriada para search
@@ -30,7 +30,7 @@ field_listDestino = ['name', 'street', 'phone',
                'mobile', 'email', 'website', 'lang', 'weigth',
                'property_product_pricelist']
 # Creacion de conexion Destino
-# clientes_Destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
+# clientes_destino = CreateXMLRCP( urlDestino, dbnameDestino, userDestino,
 #                                 pwdDestino, modelDestino )
 
 # Obtengo todos registros en una lista
@@ -41,4 +41,6 @@ field_listDestino = ['name', 'street', 'phone',
 
 # crearregistros = clientes_Destino.create_reg(datosClientes)
 # crearregistros = clientes_Destino.mass_create_reg2(datosClientes)
-lista_campos = clientes_origen.models_use()
+lista_campos_origen = clientes_origen.models_use()
+# lista_campos_destino = clientes_destino.models_use()
+# clientes_origen.models_compare()
