@@ -12,7 +12,7 @@ modelOrigen = 'res.partner'
 conditionOrigen = [['name', '!=' ,'']]
 
 field_listOrigen = ['name', 'street', 'phone', 'mobile', 'email', 'website', 'lang', 'weigth', 'main_id_numbre'
-               'property_product_pricelist',]
+               'property_product_pricelist']
 # Creacion de conexion origen
 clientes_origen = CreateXMLRCP( urlOrigen, dbnameOrigen, userOrigen,
                                 pwdOrigen, modelOrigen )

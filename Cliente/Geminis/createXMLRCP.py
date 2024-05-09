@@ -250,6 +250,8 @@ class CreateXMLRCP:
     def update_reg_values(self, data_list, old_model) :
         pass
     
+    # --- Devuelve campos usados con cantidad de usos ---
+    # --- Devuelve campos sin uso en el modelo ---
     def models_use(self, conditions = [['name', '!=' ,'']], field_ignore = []) :
         # Obtener datos modelo
         # hago un search_read con todos los campos del modelo
@@ -258,7 +260,7 @@ class CreateXMLRCP:
         
         # Iteramos las key y la guardamos como lista
         fields_name = list(fields_list.keys())
-        # fields_name = fields_name[:50]
+        # fields_name = fields_name[:10]
         print('--------------------------------------------------------------')
         print('----- Se han Obtenido', len(fields_name), 'campos -----')
         print('--------------------------------------------------------------')
@@ -292,7 +294,8 @@ class CreateXMLRCP:
         # listas de uso
         field_use = []
         field_no_use = []
-       
+        n_fields = 1
+
         # Iteracion de Campos de modelo
         for field in fields_name_BL:
             key_use = []
@@ -302,8 +305,9 @@ class CreateXMLRCP:
             mass_data = []
             default = ""
             print('--------------------------------------------------------------')
-            print('----- Obteniendo datos del campo', field, '. -----')
-            
+            print('----- Obteniendo datos del campo', field, '. ',
+                  f'{n_fields}/{len(fields_name_BL)+1}','-----')
+            n_fields += 1
             # Iteracion de Ids obtenidas por campos
             while n < len(div):
                 n_use = 0
@@ -312,7 +316,7 @@ class CreateXMLRCP:
                 print('>>>>> Obtenidos', n_reg ,'registros de', len(ids), '. <<<<<', end="\r")
                 mass_data = mass_data + data
                 n += 1
-                # if n_reg == 500 : n = len(div)
+                if n_reg == 500 : n = len(div)
             # Verifica Uso del Campo
             for data in mass_data :
                 if 'change_default' in fields_list.get(field, {}):
@@ -324,25 +328,59 @@ class CreateXMLRCP:
             # Agrego Campo a la lista de Uso
             if n_use != 0 :
                 field_use.append({field : n_use})
+            else :
+                field_no_use.append(field)
         print('--------------------------------------------------------------')
 
         # Ordena los datos por key y los imprime
-        field_use.sort(key=lambda x: next(iter(x.values())), reverse=True)
+        field_use.sort(key=lambda x: next(iter(x.keys())), reverse=False)
         for field in field_use :
             key = next(iter(field))
             valor = next(iter(field.values()))
             print('>>>>>',f"{key}: {valor}")
-
         print('--------------------------------------------------------------')
         print('----- Campos utilizado por modelo', len(field_use), '-----')
         print('--------------------------------------------------------------')
+        print('>>>> Lista de campos sin usar:', field_no_use )
+        print('--------------------------------------------------------------')
 
-
-    def models_compare(self) :
+    # --- Compara Campos de Origen y Destino ---
+    # Devuelve keys encontradas en BBDD destino
+    # Devuelve keys no encontradas en BBDD 
+    # Devuelve keys restantes en BBDD destino
+    def models_compare_fields(self, field_list_origen) :
+        #
         fields_list = self.models.execute_kw(self.dbname, self.userID, self.pwd,
                       self.model, 'fields_get', [[]])
+        fields_names = []
+        fields_find = []
+        fields_no_find = []
+        fields_rest= []
+        for field in fields_list :
+            fields_names.append(field)
+
+        fields_find = [x for x in fields_names if x in field_list_origen]
+        fields_no_find = [x for x in field_list_origen if x not in fields_names]
+        fields_rest = [x for x in fields_names if x not in field_list_origen]
         
-        print(fields_list['write_date'])
+        fields_find.sort()
+        fields_no_find.sort()
+        fields_rest.sort()
+
+        print('--------------------------------------------------------------')
+        print('>>>> Lista de campos coincidentes:', fields_find )
+        print('>>>> Campos coincidentes:', len(fields_find) )
+        print('--------------------------------------------------------------')
+        print('--------------------------------------------------------------')
+        print('>>>> Lista de campos sin coincidencias:', fields_no_find )
+        print('>>>> Campos sin coincidencias:', len(fields_no_find) )
+        print('--------------------------------------------------------------')
+        print('--------------------------------------------------------------')
+        print('>>>> Lista de campos destino:', fields_rest )
+        print('>>>> Campos destino:', len(fields_rest) )
+        print('--------------------------------------------------------------')
+
+        # print(fields_list['write_date'])
         
         
 
