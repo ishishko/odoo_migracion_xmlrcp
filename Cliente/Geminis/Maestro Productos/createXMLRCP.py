@@ -137,14 +137,13 @@ class CreateXMLRCP:
         if continua != 'y': sys.exit()
         print('--------------------------------------------------------------')
         print('------------------- Creando Registros ------------------------')
-        divs = self.__div_list(data)
+        div = self.__div_list(data)
         n = 0
-        for div in divs :
-            for regs in div :
-                self.models.execute_kw( self.dbname, self.userID, self.pwd,
-                        self.model, 'create', regs)
-                n += len(regs)
-                print('>>>>> Creados',n, 'de', len(data),'<<<<<', )        
+        for regs in div :
+            self.models.execute_kw( self.dbname, self.userID, self.pwd,
+                    self.model, 'create', regs)
+            n += len(regs)
+            print('>>>>> Creados',n, 'de', len(data),'<<<<<')        
         print('--------------------------------------------------------------')
         print('----- Initial sample -----')
         print('>>>>>', data[0], '<<<<<')
@@ -186,7 +185,7 @@ class CreateXMLRCP:
                 data = self.__mass_read_data( div[n], fields )
                 mass_data = mass_data + data
                 n_reg += len(data)
-                print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<', end="\r")
+                print('>>>>> Obtenidos',n_reg, 'de', len(ids),'<<<<<')
                 n += 1
                 # if n_reg >= 1000 : n = len(div)
 
@@ -210,6 +209,7 @@ class CreateXMLRCP:
             print('>>>>>', len(data), '<<<<<')
             print('--------------------------------------------------------------')
             return data
+
 
     # --- Update datos Migracion ---
     def update_data_keys(self, data_list ,old_key, new_key ) :
