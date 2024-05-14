@@ -137,9 +137,9 @@ class CreateXMLRCP:
         n = 0
         for regs in data:
             self.models.execute_kw(
-                self.dbname, self.userID, self.pwd, self.model, "create", regs
+                self.dbname, self.userID, self.pwd, self.model, "create", [regs]
             )
-            n += len(regs)
+            n += 1
             print(">>>>> Creados", n, "de", len(data), "<<<<<", end='\r')
         print("==============================================================")
         print("===== Initial sample =====")
