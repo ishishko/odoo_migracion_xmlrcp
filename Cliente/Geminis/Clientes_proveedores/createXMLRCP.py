@@ -2,7 +2,8 @@
 import sys
 import time
 import requests
-import copy
+
+# import copy
 from xmlrpc import client
 from threading import Thread
 
@@ -19,19 +20,19 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 10
+        self.tamano = 500
         self.start = self.__start()
 
     # === Test conexion y UserID ===
     def __start(self):
         self.common = client.ServerProxy("{}/xmlrpc/2/common".format(self.url))
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         print("Test: Conexion OK. Server:", self.common)
         self.userID = self.common.authenticate(self.dbname, self.user, self.pwd, {})
         print("COMMON OK. Usuario Autenticado. User ID:", self.userID)
         self.models = client.ServerProxy("{}/xmlrpc/2/object".format(self.url))
         print("MODELS OK. Models:", self.models)
-        print("--------------------------------------------------------------")
+        print("==============================================================")
 
     # === Division de lista ===
     def __div_list(self, lista, tamanoDiv=None):
@@ -64,6 +65,7 @@ class CreateXMLRCP:
         many2one = []
         one2many = []
         many2many = []
+        fields = []
         for field in fields_list:
             tipo = fields_list[field]["type"]
             match tipo:
@@ -75,61 +77,36 @@ class CreateXMLRCP:
                     one2many.append(field)
                 case "many2many":
                     many2many.append(field)
-        return selects, many2one, one2many, many2many
+                case _:
+                    fields.append(field)
 
-    #==============================================================
+        return selects, many2one, one2many, many2many, fields
+
+    # ==============================================================
     # === Obtener IDs ===
     def search_ids(self, conditions=[["name", "!=", ""]]):
         data = self.models.execute_kw(
             self.dbname, self.userID, self.pwd, self.model, "search", [conditions]
         )
-        print("--------------------------------------------------------------")
-        print("----- Obtener registros OK. Registros obtenidos:", len(data), "-----")
-        print("--------------------------------------------------------------")
-        return data
-
-    # === Obtener IDs ===
-    # === Leer Campos de lista de IDs ===
-    # ids_list: lista de ids de registros a leer
-    # field_list: lista de campos a obtener de cada registro
-    def search_read_data(self, conditions=[["name", "!=", ""]], fields=["name"]):
-        print()
-        ids = self.search_ids()
-        input("<<<<< Continuar con la escritura de datos? (y/n) >>>>> ")
-
-        if len(ids) > 1000:
-            input("<<<<< Continuar con la escritura de datos? (y/n) >>>>> ")
-        data = self.models.execute_kw(
-            self.dbname,
-            self.userID,
-            self.pwd,
-            self.model,
-            "search_read",
-            [conditions],
-            {"fields": fields, "limit": 1000},
-        )
-        print("----- Obtener Finalizado -----")
-        print("----- Se han obtenido", len(data), "de", len(data), "Registros -----")
-        print("----- Initial sample -----")
-        print(">>>>>", data[0], "<<<<<")
-        print("----- Final sample -----")
-        print(">>>>>", data[(len(data)) - 1], "<<<<<")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
+        print("===== Obtener registros OK. Registros obtenidos:", len(data), "=====")
+        print("==============================================================")
         return data
 
     # === Crear Campos de lista ===
     # data: lista de registros a crear
     def create_reg(self, data):
-        print("--------------------------------------------------------------")
-        print("----- Conectado con servidor:", self.common, "-----")
-        print("----- Conectado con BBDD:", self.dbname, "-----")
-        print("----- Numero de registros:", len(data), "-----")
-        print("----- Modelo destino:", self.model, "-----")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
+        print("===== Conectado con servidor:", self.common, "=====")
+        print("===== Conectado con BBDD:", self.dbname, "=====")
+        print("===== Numero de registros:", len(data), "=====")
+        print("===== Modelo destino:", self.model, "=====")
+        print("==============================================================")
         continua = input("<<<<< Continuar con la escritura de datos? (y/n) >>>>> ")
         if continua != "y":
             sys.exit()
-        print("------------------- Creando Registros ------------------------")
+        print("===================== Creando Registros ======================")
+                 
         data_created = []
         n = 0
         for reg in data:
@@ -140,50 +117,49 @@ class CreateXMLRCP:
             # if n % 100 == 0:
             print(">>>>> Creados", n, "de", len(data), "<<<<<", end="\r")
             data_created.append(registro)
-        print("--------------------------------------------------------------")
-        print("-----", len(data_created), "Creados -----")
-        print("------------- Creacion de Registros  Finalizada --------------")
+        print("==============================================================")
+        print("=====", len(data_created), "Creados =====")
+        print("============= Creacion de Registros  Finalizada ==============")
 
     # Se crean registros en BBDD
     def mass_create_reg(self, data):
-        print("--------------------------------------------------------------")
-        print("----- Conectado con servidor:", self.common, "-----")
-        print("----- Conectado con BBDD:", self.dbname, "-----")
-        print("----- Numero de registros:", len(data), "-----")
-        print("----- Modelo destino:", self.model, "-----")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
+        print("===== Conectado con servidor:", self.common, "=====")
+        print("===== Conectado con BBDD:", self.dbname, "=====")
+        print("===== Numero de registros:", len(data), "=====")
+        print("===== Modelo destino:", self.model, "=====")
+        print("==============================================================")
         continua = input("<<<<< Continuar con la escritura de datos? (y/n) >>>>> ")
         if continua != "y":
             sys.exit()
-        print("--------------------------------------------------------------")
-        print("------------------- Creando Registros ------------------------")
+        print("==============================================================")
+        print("===================== Creando Registros ======================")
         n = 0
         for regs in data:
             self.models.execute_kw(
                 self.dbname, self.userID, self.pwd, self.model, "create", regs
             )
             n += len(regs)
-            print(">>>>> Creados", n, "de", len(data), "<<<<<")
-        print("--------------------------------------------------------------")
-        print("----- Initial sample -----")
+            print(">>>>> Creados", n, "de", len(data), "<<<<<", end='\r')
+        print("==============================================================")
+        print("===== Initial sample =====")
         print(">>>>>", data[0], "<<<<<")
-        print("----- Final sample -----")
+        print("===== Final sample =====")
         print(">>>>>", data[(len(data)) - 1], "<<<<<")
-        print("-----", len(data), "Registros creados -----")
-        print("--------------------------------------------------------------")
-        print("------------- Creacion de Registros  Finalizada --------------")
-        print("--------------------------------------------------------------")
+        print("=====", len(data), "Registros creados =====")
+        print("==============================================================")
+        print("============= Creacion de Registros  Finalizada ==============")
+        print("==============================================================")
 
     # === Leer Campos de lista de IDs ===
     # ids_list: lista de ids de registros a leer
     # field_list: lista de campos a obtener de cada registro
     def read_data(self, ids_list, field_list=["name"]):
-        print("--------------------------------------------------------------")
-        print("----- Obteniedo datos de lista -----")
+        print("==============================================================")
+        print("===== Obteniedo datos de lista =====")
         data = []
         n = 0
-        l_select, l_many2one, l_one2many, l_many2many = self.__models_props()
-        # categ_d = self.models.execute(dbname_d, uid_d, pwd_d, "product.category", "search", [("name", "=", categ[0]["name"])])[0]
+        l_select, l_many2one, l_one2many, l_many2many, l_field = self.__models_props()
 
         # Lectura de registros por id
         for id in ids_list:
@@ -195,41 +171,45 @@ class CreateXMLRCP:
                 "read",
                 [[id], field_list],
             )
+            # Read devuelde una lista con 1 diccionario dentro
+            # convierto la consulta en un diccionario
+            item = item[0]
+
             # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
             for key in field_list:
                 if (
                     key in l_select
-                    and item[0][key] != False
-                    and type(item[0][key]) == type([])
+                    and item[key] != False
+                    and type(item[key]) == type([])
                 ):
-                    item[0][key] = item[0][key][0]
-                if key in l_many2one and item[0][key] != False:
-                    item[0][key] = item[0][key][0]
-                if key in l_one2many and item[0][key] != []:
+                    item[key] = item[key][0]
+                if key in l_many2one and item[key] != False:
+                    item[key] = item[key][0]
+                if key in l_one2many and item[key] != []:
                     l = []
-                    for id in item[0][key]:
+                    for id in item[key]:
                         l.append((4, id))
-                    item[0][key] = l
+                    item[key] = l
             data.append(item)
             n = n + 1
             # if n % 100 == 0:
             print(">>>>> Obtenidos", n, "de", len(ids_list), "<<<<<", end="\r")
             if n == 10:
                 break
-        print("----- Obtener Finalizado -----")
-        print("----- Se han obtenido", n, "de", len(ids_list), "Registros -----")
-        print("----- Initial sample -----")
+        print("===== Obtener Finalizado =====")
+        print("===== Se han obtenido", n, "de", len(ids_list), "Registros =====")
+        print("===== Initial sample =====")
         print(">>>>>", data[0], "<<<<<")
-        print("----- Final sample -----")
+        print("===== Final sample =====")
         print(">>>>>", data[n - 1], "<<<<<")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         return data
 
-    # --- Obtener IDs ---
-    # --- Leer Campos de lista de IDs ---
+    # === Obtener IDs ===
+    # === Leer Campos de lista de IDs ===
     # conditions: Establecer condiciones del Search
     # field: lista de campos a obtener de cada registro
-    def mass_read_data(self, conditions=[["name", "!=", ""]], fields=["name"]):
+    def mass_read_data(self, field_list=["name"], conditions=[["name", "!=", ""]]):
         # buscamos ids para verificar migracion masiva
         ids = self.search_ids(conditions)
 
@@ -255,14 +235,32 @@ class CreateXMLRCP:
             n = 0
             # recorre las sublistas dentro de "div"
             while n < len(div):
-                data = self.__mass_read_data(div[n], fields)
+                data = self.__mass_read_data(div[n], field_list)
                 mass_data = mass_data + data
                 n_reg += len(data)
-                print(">>>>> Obtenidos", n_reg, "de", len(ids), "<<<<<")
+                print(">>>>> Obtenidos", n_reg, "de", len(ids), "<<<<<", end="\r")
                 n += 1
-                if n_reg >= 10:
-                    n = len(div)
-
+                # if n_reg >= 10:
+                #     n = len(div)
+            # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
+            l_select, l_many2one, l_one2many, l_many2many, l_field = (
+                self.__models_props()
+            )
+            for key in field_list:
+                for item in mass_data:
+                    if (
+                        key in l_select
+                        and item[key] != False
+                        and type(item[key]) == type([])
+                    ):
+                        item[key] = item[key][0]
+                    if key in l_many2one and item[key] != False:
+                        item[key] = item[key][0]
+                    if key in l_one2many and item[key] != []:
+                        l = []
+                        for id in item[key]:
+                            l.append((4, id))
+                        item[key] = l
             print("===== Obtener Finalizado =====")
             print("===== Se han obtenido", n_reg, "de", len(ids), "Registros =====")
             print("==============================================================")
@@ -274,7 +272,7 @@ class CreateXMLRCP:
             print("==============================================================")
             return mass_data
         else:
-            data = self.__mass_read_data(div[0], fields)
+            data = self.__mass_read_data(div[0], field_list)
             print("===== Obtener Finalizado -----")
             print(
                 "===== Se han obtenido", len(data), "de", len(data), "Registros ====="
@@ -286,66 +284,66 @@ class CreateXMLRCP:
             print("==============================================================")
             return data
 
-    # --- Update datos Migracion ---
+    # === Update keys registros Migracion ===
     def update_data_keys(self, data_list, old_key, new_key):
+
+        # try:
+        #     sample = copy.deepcopy(data_list[0])
+        #     # print(sample)
+        # except Exception as e:
+        #     print(e, " |||| ", str(data_list))
+
         # Copiamos la posicion 0 sin modificar origen
-        try:
-            # sample = data_list[0].copy()
-            sample = copy.deepcopy(data_list[0])
-            print(sample)
-        except Exception as e:
-            print(e, " |||| ", str(data_list))
-
+        sample = data_list[0].copy()
         # Cambia el valor de la key en la muestra
+        sample[new_key] = sample.pop(old_key)
 
-        # ejemplo2 = sample[0].pop(old_key)
-        sample[0][new_key] = sample[0].pop(old_key)
-        # print(ejemplo2, '  ', sample[0][new_key])
-        print("--------------------------------------------------------------")
-        print("----- Se han cargado", len(data_list), "registros -----")
-        print("--------------------------------------------------------------")
-        print("----- Initial sample -----")
+        print("==============================================================")
+        print(f"===== Actualizacion de key '{old_key}' por '{new_key}' =====")
+        print("===== Se han cargado", len(data_list), "registros =====")
+        print("==============================================================")
+        print("===== Initial sample =====")
         print(">>>>>", data_list[0], "<<<<<")
-        print("--------------------------------------------------------------")
-        print("----- Final sample -----")
+        print("==============================================================")
+        print("===== Final sample =====")
         print(">>>>>", sample, "<<<<<")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         start_up = input("<<<<< Actualizar todos los registros? (y/n) >>>>> ")
         if start_up != "y":
             sys.exit()
         n = 0
         print(
-            "----- Actualizando",
+            "===== Actualizando",
             old_key,
             "por",
             new_key,
             "en",
             len(data_list),
-            " -----",
+            " =====",
         )
         # Recorro diccionario
         for data in data_list:
             # Cambia los valores de la key
-            print(data[0])
-            data[0][new_key] = data[0].pop(old_key)
+            # print(data[0])
+            data[new_key] = data.pop(old_key)
             n += 1
-        print("--------------------------------------------------------------")
-        print("----- Update keys Finalizado -----")
-        print("----- Se han modificado", n, "de", len(data_list), "Registros -----")
-        print("--------------------------------------------------------------")
-        print("----- Initial sample -----")
+        print("==============================================================")
+        print("===== Update keys Finalizado =====")
+        print("===== Se han modificado", n, "de", len(data_list), "Registros =====")
+        print("==============================================================")
+        print("===== Initial sample =====")
         print(">>>>>", data_list[0], "<<<<<")
-        print("--------------------------------------------------------------")
-        print("----- Final sample -----")
+        print("==============================================================")
+        print("===== Final sample =====")
         print(">>>>>", data_list[(len(data_list)) - 1], "<<<<<")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         return data_list
 
     def update_reg_values(self, data_list, old_model):
         pass
 
-    # --- Devuelve campos usados con cantidad de usos ---
-    # --- Devuelve campos sin uso en el modelo ---
+    # === Devuelve campos usados con cantidad de usos ===
+    # === Devuelve campos sin uso en el modelo ===
     def models_use(self, conditions=[["name", "!=", ""]], field_ignore=[]):
         # Obtener datos modelo
         # hago un search_read con todos los campos del modelo
@@ -384,7 +382,7 @@ class CreateXMLRCP:
         del ids[id_corrupt]
         # -----------------------------------------
         # Incremento tamano de lotes para lectura de a un campo
-        tamano = self.tamano * 4
+        tamano = self.tamano * 5
         div = self.__div_list(ids, tamano)
 
         # listas de uso
@@ -457,12 +455,11 @@ class CreateXMLRCP:
         print(">>>> Lista de campos sin usar:", field_no_use)
         print("--------------------------------------------------------------")
 
-    # --- Compara Campos de Origen y Destino ---
+    # === Compara Campos de Origen y Destino ===
     # Devuelve keys encontradas en BBDD destino
     # Devuelve keys no encontradas en BBDD
     # Devuelve keys restantes en BBDD destino
     def models_compare_fields(self, field_list_origen):
-        #
         fields_list = self.models.execute_kw(
             self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
         )
@@ -496,21 +493,32 @@ class CreateXMLRCP:
 
         # print(fields_list['write_date'])
 
-    # Ver propiedades de los campos
+    # Devuelve campos especiales
     def models_props(self):
-        selects, many2one, one2many, many2many = self.__models_props()
+        selects, many2one, one2many, many2many, fields = self.__models_props()
+        selects.sort()
+        many2many.sort()
+        one2many.sort()
+        many2many.sort()
+        fields.sort()
+        ne = len(selects) + len(many2one) + len(one2many) + len(many2many)
         print("==============================================================")
-        print(f"===== Campos especiales =====")
+        print(f"===== Campos S/C =====")
         print("==============================================================")
-        print(f">>>>> Campos selects <<<<<")
+        print(f">>>>> Campos Campos S/C {len(fields)} <<<<<")
+        print(f" {fields}")
+        print("==============================================================")
+        print(f"===== Campos especiales {ne} =====")
+        print("==============================================================")
+        print(f">>>>> Campos selects {len(selects)} <<<<<")
         print(f" {selects}")
         print("==============================================================")
-        print(f">>>>> Campos many2one <<<<<")
+        print(f">>>>> Campos many2one {len(many2one)} <<<<<")
         print(f" {many2one}")
         print("==============================================================")
-        print(f">>>>> Campos one2many <<<<<")
+        print(f">>>>> Campos one2many {len(one2many)} <<<<<")
         print(f" {one2many}")
         print("==============================================================")
-        print(f">>>>> Campos many2many <<<<<")
+        print(f">>>>> Campos many2many {len(many2many)} <<<<<")
         print(f" {many2many}")
         print("==============================================================")

@@ -38,3 +38,6 @@ Importacion de clientes:
 
     display_name
         Analizar si necesita ser cargado o se arma solo al agregar el nombre del producto
+
+
+    el elemento read debuelve una lista de 1 elemento
