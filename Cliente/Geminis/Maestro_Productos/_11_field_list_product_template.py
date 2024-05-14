@@ -1,13 +1,18 @@
-field_system = ['calendar_last_notif_ack','create_date','create_uid',
-                'has_unreconciled_entries','invoice_warn','message_follower_ids',
-                'message_ids','message_is_follower','message_needaction',
-                'message_needaction_counter','message_partner_ids','other_document_type_ids',
-                'partner_share','partner_state','partner_state_enable','picking_warn',
-                'self','signup_expiration','signup_token','signup_type',
-                'signup_url','signup_valid','start_date','type','website_url'
-                'write_date','write_uid']
+field_system = ['__last_update','create_date','create_uid','expense_policy',
+                'incoming_qty','inventory_availability','message_follower_ids',
+                'message_ids','message_is_follower','message_partner_ids',
+                'sequence','valuation','variant_seller_ids','write_date',
+                'write_uid']
 
-field_no_need = []
+field_no_need = ['available_threshold','barcode','contract_type','cost_currency_id',
+                 'cost_method','default_code','description','description_pickingout',
+                 'description_sale','event_ok','hs_code','item_ids','l10n_ar_ncm_code',
+                 'pos_categ_id','product_variant_count','product_variant_id',
+                 'product_variant_ids','property_account_expense_id',
+                 'property_stock_inventory','property_stock_production',
+                 'purchase_line_warn','qty_available','sales_count','seller_ids',
+                 'service_type','tracking','type','uom_id','uom_po_id','virtual_available',
+                 ]
 
 field_error = []
 
@@ -48,6 +53,14 @@ field_no_used = ['meli_product_code', 'meli_catalog_product_id', 'meli_buying_mo
                  'description_pickingin', 'rating_ids', 'property_cost_method', 
                  'meli_catalog_item_relations', 'meli_price_update', 'purchase_count']
 
-field_list_check = []
+field_list_check = ['active','arba_code','available_in_pos','categ_id','company_id',
+                    'currency_id','image','image_medium','image_small',
+                    'invoice_policy','list_price','name','outgoing_qty',
+                    'purchase_method','purchase_ok','responsible_id',
+                    'route_ids','sale_line_warn','sale_ok','standard_price',
+                    'supplier_taxes_id','taxed_lst_price','taxes_id','to_weight',
+                    'website_price','website_price_difference',
+                    'website_public_price','website_sequence','website_size_x',
+                    'website_size_y','website_url']
 
 field_ignore = field_system + field_no_need + field_error + field_no_used

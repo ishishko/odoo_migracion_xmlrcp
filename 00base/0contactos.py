@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import xmlrpc.client
 from createXMLRCP import CreateXMLRCP
 from _11_field_list_res_partner import field_list_check
 
