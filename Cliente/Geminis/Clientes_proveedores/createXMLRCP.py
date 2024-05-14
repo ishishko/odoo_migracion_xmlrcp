@@ -19,10 +19,10 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 100
+        self.tamano = 10
         self.start = self.__start()
 
-    # --- Test conexion y UserID ---
+    # === Test conexion y UserID ===
     def __start(self):
         self.common = client.ServerProxy("{}/xmlrpc/2/common".format(self.url))
         print("--------------------------------------------------------------")
@@ -33,13 +33,13 @@ class CreateXMLRCP:
         print("MODELS OK. Models:", self.models)
         print("--------------------------------------------------------------")
 
-    # --- Division de lista ----
+    # === Division de lista ===
     def __div_list(self, lista, tamanoDiv=None):
         if tamanoDiv is None:
             tamanoDiv = self.tamano
         return [lista[n : n + tamanoDiv] for n in range(0, len(lista), tamanoDiv)]
 
-    # --- Lectura de datos ---
+    # === Lectura de datos ===
     def __mass_read_data(self, div, fields=["name"]):
         # Recibe lista de Ids y utiliza condicion de Includos en "div"
         condicion = [["id", "in", div]]
@@ -55,7 +55,30 @@ class CreateXMLRCP:
         )
         return data
 
-    # --- Obtener IDs ---
+    # === Lectura campos especiales modelo ===
+    def __models_props(self):
+        fields_list = self.models.execute_kw(
+            self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
+        )
+        selects = []
+        many2one = []
+        one2many = []
+        many2many = []
+        for field in fields_list:
+            tipo = fields_list[field]["type"]
+            match tipo:
+                case "selection":
+                    selects.append(field)
+                case "many2one":
+                    many2one.append(field)
+                case "one2many":
+                    one2many.append(field)
+                case "many2many":
+                    many2many.append(field)
+        return selects, many2one, one2many, many2many
+
+    #==============================================================
+    # === Obtener IDs ===
     def search_ids(self, conditions=[["name", "!=", ""]]):
         data = self.models.execute_kw(
             self.dbname, self.userID, self.pwd, self.model, "search", [conditions]
@@ -65,54 +88,8 @@ class CreateXMLRCP:
         print("--------------------------------------------------------------")
         return data
 
-    # --- Leer Campos de lista de IDs ---
-    # ids_list: lista de ids de registros a leer
-    # field_list: lista de campos a obtener de cada registro
-    def read_data(self, ids_list, field_list=["name"]):
-        print("--------------------------------------------------------------")
-        print("----- Obteniedo datos de lista -----")
-        data = []
-        n = 0
-        l_select, l_many2one, l_one2many = self.models_props()
-        # categ_d = self.models.execute(dbname_d, uid_d, pwd_d, "product.category", "search", [("name", "=", categ[0]["name"])])[0]
-
-        for id in ids_list:
-            item = self.models.execute_kw(
-                self.dbname,
-                self.userID,
-                self.pwd,
-                self.model,
-                "read",
-                [[id], field_list],
-            )
-
-            for key in field_list:
-                if key in l_select and item[0][key] != False and type(item[0][key]) == type([]):
-                    item[0][key] = item[0][key][0]
-                if key in l_many2one and item[0][key] != False:
-                    item[0][key] = item[0][key][0]
-                if key in l_one2many and  item[0][key] != []:
-                    l=[]
-                    for id in item[0][key]:
-                        l.append((4,id))
-                    item[0][key] = l
-            data.append(item)
-            n = n + 1
-            # if n % 100 == 0:
-            print(">>>>> Obtenidos", n, "de", len(ids_list),'<<<<<', end='\r')
-            if n == 500:
-                break
-        print('----- Obtener Finalizado -----')
-        print('----- Se han obtenido', n , 'de' , len(ids_list),'Registros -----')
-        print('----- Initial sample -----')
-        print('>>>>>', data[0], '<<<<<')
-        print('----- Final sample -----')
-        print('>>>>>', data[n-1], '<<<<<')
-        print('--------------------------------------------------------------')
-        return data
-
-    # --- Obtener IDs ---
-    # --- Leer Campos de lista de IDs ---
+    # === Obtener IDs ===
+    # === Leer Campos de lista de IDs ===
     # ids_list: lista de ids de registros a leer
     # field_list: lista de campos a obtener de cada registro
     def search_read_data(self, conditions=[["name", "!=", ""]], fields=["name"]):
@@ -140,7 +117,7 @@ class CreateXMLRCP:
         print("--------------------------------------------------------------")
         return data
 
-    # --- Crear Campos de lista ---
+    # === Crear Campos de lista ===
     # data: lista de registros a crear
     def create_reg(self, data):
         print("--------------------------------------------------------------")
@@ -161,7 +138,7 @@ class CreateXMLRCP:
             )
             n = n + 1
             # if n % 100 == 0:
-            print(">>>>> Creados", n, "de", len(data), '<<<<<', end='\r')
+            print(">>>>> Creados", n, "de", len(data), "<<<<<", end="\r")
             data_created.append(registro)
         print("--------------------------------------------------------------")
         print("-----", len(data_created), "Creados -----")
@@ -196,6 +173,57 @@ class CreateXMLRCP:
         print("--------------------------------------------------------------")
         print("------------- Creacion de Registros  Finalizada --------------")
         print("--------------------------------------------------------------")
+
+    # === Leer Campos de lista de IDs ===
+    # ids_list: lista de ids de registros a leer
+    # field_list: lista de campos a obtener de cada registro
+    def read_data(self, ids_list, field_list=["name"]):
+        print("--------------------------------------------------------------")
+        print("----- Obteniedo datos de lista -----")
+        data = []
+        n = 0
+        l_select, l_many2one, l_one2many, l_many2many = self.__models_props()
+        # categ_d = self.models.execute(dbname_d, uid_d, pwd_d, "product.category", "search", [("name", "=", categ[0]["name"])])[0]
+
+        # Lectura de registros por id
+        for id in ids_list:
+            item = self.models.execute_kw(
+                self.dbname,
+                self.userID,
+                self.pwd,
+                self.model,
+                "read",
+                [[id], field_list],
+            )
+            # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
+            for key in field_list:
+                if (
+                    key in l_select
+                    and item[0][key] != False
+                    and type(item[0][key]) == type([])
+                ):
+                    item[0][key] = item[0][key][0]
+                if key in l_many2one and item[0][key] != False:
+                    item[0][key] = item[0][key][0]
+                if key in l_one2many and item[0][key] != []:
+                    l = []
+                    for id in item[0][key]:
+                        l.append((4, id))
+                    item[0][key] = l
+            data.append(item)
+            n = n + 1
+            # if n % 100 == 0:
+            print(">>>>> Obtenidos", n, "de", len(ids_list), "<<<<<", end="\r")
+            if n == 10:
+                break
+        print("----- Obtener Finalizado -----")
+        print("----- Se han obtenido", n, "de", len(ids_list), "Registros -----")
+        print("----- Initial sample -----")
+        print(">>>>>", data[0], "<<<<<")
+        print("----- Final sample -----")
+        print(">>>>>", data[n - 1], "<<<<<")
+        print("--------------------------------------------------------------")
+        return data
 
     # --- Obtener IDs ---
     # --- Leer Campos de lista de IDs ---
@@ -232,30 +260,30 @@ class CreateXMLRCP:
                 n_reg += len(data)
                 print(">>>>> Obtenidos", n_reg, "de", len(ids), "<<<<<")
                 n += 1
-                if n_reg >= 100:
+                if n_reg >= 10:
                     n = len(div)
 
-            print("----- Obtener Finalizado -----")
-            print("----- Se han obtenido", n_reg, "de", len(ids), "Registros -----")
-            print("--------------------------------------------------------------")
-            print("----- Initial sample -----")
+            print("===== Obtener Finalizado =====")
+            print("===== Se han obtenido", n_reg, "de", len(ids), "Registros =====")
+            print("==============================================================")
+            print("===== Initial sample =====")
             print(">>>>>", data[0], "<<<<<")
-            print("--------------------------------------------------------------")
-            print("----- Final sample -----")
+            print("==============================================================")
+            print("===== Final sample =====")
             print(">>>>>", mass_data[(len(mass_data)) - 1], "<<<<<")
-            print("--------------------------------------------------------------")
+            print("==============================================================")
             return mass_data
         else:
             data = self.__mass_read_data(div[0], fields)
-            print("----- Obtener Finalizado -----")
+            print("===== Obtener Finalizado -----")
             print(
-                "----- Se han obtenido", len(data), "de", len(data), "Registros -----"
+                "===== Se han obtenido", len(data), "de", len(data), "Registros ====="
             )
-            print("----- Initial sample -----")
+            print("===== Initial sample =====")
             print(">>>>>", data[0], "<<<<<")
-            print("----- Final sample -----")
+            print("===== Final sample =====")
             print(">>>>>", len(data), "<<<<<")
-            print("--------------------------------------------------------------")
+            print("==============================================================")
             return data
 
     # --- Update datos Migracion ---
@@ -264,13 +292,12 @@ class CreateXMLRCP:
         try:
             # sample = data_list[0].copy()
             sample = copy.deepcopy(data_list[0])
-            print (sample)
+            print(sample)
         except Exception as e:
-            print(e,' |||| ', str( data_list ))
-        
-        
+            print(e, " |||| ", str(data_list))
+
         # Cambia el valor de la key en la muestra
-        
+
         # ejemplo2 = sample[0].pop(old_key)
         sample[0][new_key] = sample[0].pop(old_key)
         # print(ejemplo2, '  ', sample[0][new_key])
@@ -471,19 +498,19 @@ class CreateXMLRCP:
 
     # Ver propiedades de los campos
     def models_props(self):
-        fields_list = self.models.execute_kw(
-            self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
-        )
-        selects = []
-        many2one = []
-        one2many = []
-        for field in fields_list:
-            tipo = fields_list[field]["type"]
-            match tipo:
-                case "selection":
-                    selects.append(field)
-                case "many2one":
-                    many2one.append(field)
-                case "one2many":
-                    one2many.append(field)
-        return selects, many2one, one2many
+        selects, many2one, one2many, many2many = self.__models_props()
+        print("==============================================================")
+        print(f"===== Campos especiales =====")
+        print("==============================================================")
+        print(f">>>>> Campos selects <<<<<")
+        print(f" {selects}")
+        print("==============================================================")
+        print(f">>>>> Campos many2one <<<<<")
+        print(f" {many2one}")
+        print("==============================================================")
+        print(f">>>>> Campos one2many <<<<<")
+        print(f" {one2many}")
+        print("==============================================================")
+        print(f">>>>> Campos many2many <<<<<")
+        print(f" {many2many}")
+        print("==============================================================")

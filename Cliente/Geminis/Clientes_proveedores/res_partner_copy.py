@@ -30,38 +30,30 @@ field_listDestino = [
     "weigth",
     "property_product_pricelist",
 ]
-clientes_destino = CreateXMLRCP(
-    urlDestino, dbnameDestino, userDestino, pwdDestino, modelDestino
-)
+# clientes_destino = CreateXMLRCP(
+#     urlDestino, dbnameDestino, userDestino, pwdDestino, modelDestino
+# )
 
 # data_origen = clientes_origen.mass_read_data(conditionOrigen, field_listOrigen)
 
-ids_origen = clientes_origen.search_ids()
-data_origen = clientes_origen.read_data(ids_origen, field_list_check)
+# ids_origen = clientes_origen.search_ids()
+# data_origen = clientes_origen.read_data(ids_origen, field_list_check)
 
-data_origen = clientes_origen.update_data_keys(data_origen,'id','old_id')
-data_origen = clientes_origen.update_data_keys(data_origen,'afip_responsability_type_id','l10n_latam_identification_type_id')
-data_origen = clientes_origen.update_data_keys(data_origen,'cuit','vat')
-data_origen = clientes_origen.update_data_keys(data_origen,'customer','customer_rank')
-data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_type','l10n_ar_gross_income_type')
-data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_number','l10n_ar_gross_income_number')
-# data_origen = clientes_origen.update_data_keys(data_origen,'main_id_category_id','category_id')
-data_origen = clientes_origen.update_data_keys(data_origen,'payable_debt_ids','property_account_payable_id')
-data_origen = clientes_origen.update_data_keys(data_origen,'receivable_debt_ids','property_account_receivable_id')
-data_origen = clientes_origen.update_data_keys(data_origen,'supplier','supplier_rank')
-
-# clientes_destino.models_compare_fields(field_list_check)
+# data_origen = clientes_origen.update_data_keys(data_origen,'id','old_id')
+# data_origen = clientes_origen.update_data_keys(data_origen,'afip_responsability_type_id','l10n_latam_identification_type_id')
+# data_origen = clientes_origen.update_data_keys(data_origen,'cuit','vat')
+# data_origen = clientes_origen.update_data_keys(data_origen,'customer','customer_rank')
+# data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_type','l10n_ar_gross_income_type')
+# data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_number','l10n_ar_gross_income_number')
+# # data_origen = clientes_origen.update_data_keys(data_origen,'main_id_category_id','category_id')
+# data_origen = clientes_origen.update_data_keys(data_origen,'payable_debt_ids','property_account_payable_id')
+# data_origen = clientes_origen.update_data_keys(data_origen,'receivable_debt_ids','property_account_receivable_id')
+# data_origen = clientes_origen.update_data_keys(data_origen,'supplier','supplier_rank')
 
 # clientes_destino.mass_create_reg(data_origen)
 
-# clientes_origen.models_props()
+ids_origen = clientes_origen.search_ids()
+clientes_origen.read_data(ids_origen, field_list_check)
 
-# ids = clientes_origen.search_ids()
-# data = clientes_origen.read_data(ids, field_list_check)
-# ids = clientes_origen.search_ids()
-# data = clientes_origen.read_data(ids, field_list_check)
+clientes_origen.mass_read_data(conditionOrigen, field_list_check)
 
-clientes_destino.create_reg(data_origen)
-
-# ids =clientes_origen.search_ids()
-# clientes_destino.read_data(ids)
