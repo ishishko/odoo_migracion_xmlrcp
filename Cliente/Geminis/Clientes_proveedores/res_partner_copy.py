@@ -46,8 +46,7 @@ data_origen = clientes_origen.update_data_keys(data_origen,'customer','customer_
 data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_type','l10n_ar_gross_income_type')
 data_origen = clientes_origen.update_data_keys(data_origen,'gross_income_number','l10n_ar_gross_income_number')
 # data_origen = clientes_origen.update_data_keys(data_origen,'main_id_category_id','category_id')
-# data_origen = clientes_origen.update_data_keys(data_origen,'payable_debt_ids','property_account_payable_id')
-# data_origen = clientes_origen.update_data_keys(data_origen,'receivable_debt_ids','property_account_receivable_id')
+data_origen = clientes_origen.update_data_keys(data_origen,'receivable_debt_ids','property_account_receivable_id')
 data_origen = clientes_origen.update_data_keys(data_origen,'supplier','supplier_rank')
 
 clientes_destino.mass_create_reg(data_origen)

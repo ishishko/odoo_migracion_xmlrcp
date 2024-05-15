@@ -106,7 +106,7 @@ class CreateXMLRCP:
         if continua != "y":
             sys.exit()
         print("===================== Creando Registros ======================")
-                 
+
         data_created = []
         n = 0
         for reg in data:
@@ -136,11 +136,16 @@ class CreateXMLRCP:
         print("===================== Creando Registros ======================")
         n = 0
         for regs in data:
-            self.models.execute_kw(
-                self.dbname, self.userID, self.pwd, self.model, "create", [regs]
-            )
-            n += 1
-            print(">>>>> Creados", n, "de", len(data), "<<<<<", end='\r')
+            try:
+                self.models.execute_kw(
+                    self.dbname, self.userID, self.pwd, self.model, "create", [regs]
+                )
+                n += 1
+            except Exception as e:
+                print(f"145 - {regs}")
+                continue
+            print(f">>>>> {regs}")
+            # print(">>>>> Creados", n, "de", len(data), "<<<<<", end="\r")
         print("==============================================================")
         print("===== Initial sample =====")
         print(">>>>>", data[0], "<<<<<")
@@ -188,7 +193,7 @@ class CreateXMLRCP:
                 if key in l_one2many and item[key] != []:
                     l = []
                     for id in item[key]:
-                        l.append((4, id))
+                        l.append((0,0,{'id':id}))
                     item[key] = l
             data.append(item)
             n = n + 1
@@ -256,11 +261,19 @@ class CreateXMLRCP:
                         item[key] = item[key][0]
                     if key in l_many2one and item[key] != False:
                         item[key] = item[key][0]
+                    
+                    # o2m field type
                     if key in l_one2many and item[key] != []:
                         l = []
                         for id in item[key]:
-                            l.append((4, id))
-                        item[key] = l
+                            l.append((0,0,{'id':id}))
+                        try:        
+                            item[key] = l
+                        except Exception as e:
+                            print("203 - ", e)
+                            item[key] = []
+                            continue 
+
             print("===== Obtener Finalizado =====")
             print("===== Se han obtenido", n_reg, "de", len(ids), "Registros =====")
             print("==============================================================")
@@ -343,10 +356,11 @@ class CreateXMLRCP:
         pass
 
     # === Devuelve campos usados con cantidad de usos ===
+    # === Separa los campos por tipo para migracion ordenada ===
     # === Devuelve campos sin uso en el modelo ===
     def models_use(self, conditions=[["name", "!=", ""]], field_ignore=[]):
         # Obtener datos modelo
-        # hago un search_read con todos los campos del modelo
+        # hago un fields_get de todos los campos del modelo
         fields_list = self.models.execute_kw(
             self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
         )
@@ -354,17 +368,12 @@ class CreateXMLRCP:
         # Iteramos las key y la guardamos como lista
         fields_name = list(fields_list.keys())
         # fields_name = fields_name[:10]
-        print("--------------------------------------------------------------")
-        print("----- Se han Obtenido", len(fields_name), "campos -----")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
+        print(f"===== Se han Obtenido {len(fields_name)} campos =====")
+        print("==============================================================")
 
         # Busqueda campos especiales || Blacklist
         fields_error = ["email_formatted"]
-        # for field in fields_name :
-        # Buscando campos obligatorios
-        # if fields_list[field]['required'] : fields_req.append(field)
-        # Buscamos campos readonly
-        # if fields_list[field]['readonly'] : fields_RO.append(field)
         fields_BL = field_ignore + fields_error
         # Eliminar campos especiales de
         fields_name_BL = [x for x in fields_name if x not in fields_BL]
@@ -398,13 +407,10 @@ class CreateXMLRCP:
             n = 0
             mass_data = []
             default = ""
-            print("--------------------------------------------------------------")
+            print("==============================================================")
             print(
-                "----- Obteniendo datos del campo",
-                field,
-                ". ",
-                f"{n_fields}/{len(fields_name_BL)+1}",
-                "-----",
+                f"===== Obteniendo datos del campo {field}. {n_fields}/{len(fields_name_BL)+1} =====",
+                end="\r",
             )
             n_fields += 1
             # Iteracion de Ids obtenidas por campos
@@ -413,12 +419,7 @@ class CreateXMLRCP:
                 n_reg += len(div[n])
                 data = self.__mass_read_data(div[n], [field])
                 print(
-                    ">>>>> Obtenidos",
-                    n_reg,
-                    "registros de",
-                    len(ids),
-                    ". <<<<<",
-                    end="\r",
+                    f">>>>> Obtenidos {n_reg} registros de {len(ids)}. <<<<<", end="\r"
                 )
                 mass_data = mass_data + data
                 n += 1
@@ -441,7 +442,7 @@ class CreateXMLRCP:
                 field_use.append({field: n_use})
             else:
                 field_no_use.append(field)
-        print("--------------------------------------------------------------")
+        print("==============================================================")
 
         # Ordena los datos por key y los imprime
         field_use.sort(key=lambda x: next(iter(x.keys())), reverse=False)
@@ -449,11 +450,11 @@ class CreateXMLRCP:
             key = next(iter(field))
             valor = next(iter(field.values()))
             print(">>>>>", f"{key}: {valor}")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         print("----- Campos utilizado por modelo", len(field_use), "-----")
-        print("--------------------------------------------------------------")
+        print("==============================================================")
         print(">>>> Lista de campos sin usar:", field_no_use)
-        print("--------------------------------------------------------------")
+        print("==============================================================")
 
     # === Compara Campos de Origen y Destino ===
     # Devuelve keys encontradas en BBDD destino
