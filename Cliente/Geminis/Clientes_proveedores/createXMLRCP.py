@@ -189,19 +189,34 @@ class CreateXMLRCP:
 
             # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
             for key in field_list:
-                if (
-                    key in l_select
-                    and item[key] != False
-                    and type(item[key]) == type([])
-                ):
-                    item[key] = item[key][0]
-                if key in l_many2one and item[key] != False:
-                    item[key] = item[key][0]
-                if key in l_one2many and item[key] != []:
-                    l = []
-                    for id in item[key]:
-                        l.append((0, 0, {"id": id}))
-                    item[key] = l
+                # select field type
+                    if (
+                        key in l_select
+                        and item[key] != False
+                        and type(item[key]) == type([])
+                    ):
+                        item[key] = item[key][0]
+
+                    # m2o field type
+                    if key in l_many2one and item[key] != False:
+                        item[key] = item[key][0]
+
+                    # m2m field type
+                    if key in l_many2many and item[key] != False:
+                        if item[key] != []:
+                            item[key] = item[key]
+
+                    # # o2m field type
+                    # if key in l_one2many and item[key] != []:
+                    #     l = []
+                    #     for id in item[key]:
+                    #         l.append((0, 0, {"id": id}))
+                    #     try:
+                    #         item[key] = l
+                    #     except Exception as e:
+                    #         print("203 - ", e)
+                    #         item[key] = []
+                    #         continue
             data.append(item)
             n = n + 1
             # if n % 100 == 0:
@@ -251,10 +266,10 @@ class CreateXMLRCP:
 
             # recorre las sublistas dentro de "div"
             while n < len(div):
+                print(f">>>>> Obtenidos {n_reg} de {len(ids)} ", end="\r")
                 data = self.__mass_read_data(div[n], field_list)
                 mass_data = mass_data + data
                 n_reg += len(data)
-                print(">>>>> Obtenidos", n_reg, "de", len(ids), "<<<<<", end="\r")
                 n += 1
 
             # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
@@ -514,9 +529,8 @@ class CreateXMLRCP:
         fields.sort()
         ne = len(selects) + len(many2one) + len(one2many) + len(many2many)
         print("==============================================================")
-        print(f"===== Campos S/C =====")
+        print(f"===== Campos S/C {len(fields)} =====")
         print("==============================================================")
-        print(f">>>>> Campos Campos S/C {len(fields)} <<<<<")
         print(f" {fields}")
         print("==============================================================")
         print(f"===== Campos especiales {ne} =====")
@@ -534,7 +548,7 @@ class CreateXMLRCP:
         print(f" {many2many}")
         print("==============================================================")
 
-    # === Devuelve informacion tecnica de los campos ===
+    # === Devuelve informacion tecnica de los campos deseados ===
     def models_field_props(self, fields_list=[]):
         print("==============================================================")
         if fields_list == []:
@@ -557,3 +571,14 @@ class CreateXMLRCP:
                     print(
                         "=============================================================="
                     )
+
+    # === Lectura de Campos del modelo ===
+    def models_status(self):
+        fields_props = self.models.execute_kw(
+            self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
+        )
+
+        for field in fields_props.items():
+            print("==============================================================")
+            print(f'===== Campo "{field[0]}" =====')
+            print(f'>>>>> {field[1]}')
