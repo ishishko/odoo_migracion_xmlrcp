@@ -75,6 +75,18 @@ field_no_need = [
 
 field_error = ["email_formatted"]
 
+field_many2many = [
+    "actividades_padron",
+    "category_id",
+    "channel_ids",
+    "gross_income_jurisdiction_ids",
+    "impuestos_padron",
+    "meeting_ids",
+    "message_channel_ids",
+    "message_partner_ids",
+    "other_document_type_ids",
+]
+
 field_no_used = [
     "color",
     "payment_token_count",
@@ -128,32 +140,35 @@ field_no_used = [
 
 field_list_check = [
     "active",
-    "afip_responsability_type_id",
+    "activity_ids",
+    # "afip_responsability_type_id",
     "comment",
     "commercial_company_name",
     "cuit",
     "customer",
     "email",
     "function",
-    "gross_income_number",
-    "gross_income_type",
-    'invoice_ids', # campo one2many
+    # "gross_income_number",
+    # "gross_income_type",
+    "invoice_ids",  # campo one2many
     "is_company",
     "lang",
     # "main_id_category_id", # no encontrado
+    # "message_follower_ids", # <Fault 2: 'The operation cannot be completed:\n- Create/update: a mandatory field is not set.\n- Delete: another model requires the record being deleted. If possible, archive it instead.\n\nModel: Document Followers (mail.followers)\nField: Related Partner (partner_id)\n'>
+    # "message_ids", # <Fault 1: 'Traceback (most recent call last):\n  File "/home/odoo/src/odoo/odoo/addons/base/controllers/rpc.py", line 147, in xmlrpc_2\n    response = self._xmlrpc(service)\n  File "/home/odoo/src/odoo/odoo/addons/base/controllers/rpc.py", line 127, in _xmlrpc\n    result = dispatch_rpc(service, method, params)\n  File "/home/odoo/src/odoo/odoo/http.py", line 391, in dispatch_rpc\n    return dispatch(method, params)\n  File "/home/odoo/src/odoo/odoo/service/model.py", line 37, in dispatch\n    res = execute_kw(db, uid, *params[3:])\n  File "/home/odoo/src/odoo/odoo/service/model.py", line 59, in execute_kw\n    return execute(db, uid, obj, method, *args, **kw or {})\n  File "/home/odoo/src/odoo/odoo/service/model.py", line 65, in execute\n    res = execute_cr(cr, uid, obj, method, *args, **kw)\n  File "/home/odoo/src/odoo/odoo/service/model.py", line 50, in execute_cr\n    result = retrying(partial(odoo.api.call_kw, recs, method, args, kw), env)\n  File "/home/odoo/src/odoo/odoo/service/model.py", line 133, in retrying\n    result = func()\n  File "/home/odoo/src/odoo/odoo/api.py", line 466, in call_kw\n    result = _call_kw_model_create(method, model, args, kwargs)\n  File "/home/odoo/src/odoo/odoo/api.py", line 444, in _call_kw_model_create\n    result = method(recs, *args, **kwargs)\n  File "<decorator-gen-200>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 414, in _model_create_multi\n    return create(self, [arg])\n  File "/home/odoo/src/odoo/addons/account/models/partner.py", line 712, in create\n    return super().create(vals_list)\n  File "<decorator-gen-191>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 415, in _model_create_multi\n    return create(self, arg)\n  File "/home/odoo/src/odoo/addons/partner_autocomplete/models/res_partner.py", line 211, in create\n    partners = super(ResPartner, self).create(vals_list)\n  File "<decorator-gen-102>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 415, in _model_create_multi\n    return create(self, arg)\n  File "/home/odoo/src/odoo/odoo/addons/base/models/res_partner.py", line 741, in create\n    partners = super(Partner, self).create(vals_list)\n  File "<decorator-gen-139>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 415, in _model_create_multi\n    return create(self, arg)\n  File "/home/odoo/src/odoo/addons/mail/models/mail_thread.py", line 259, in create\n    threads = super(MailThread, self).create(vals_list)\n  File "<decorator-gen-12>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 415, in _model_create_multi\n    return create(self, arg)\n  File "/home/odoo/src/odoo/odoo/models.py", line 4608, in create\n    records = self._create(data_list)\n  File "/home/odoo/src/odoo/odoo/models.py", line 4855, in _create\n    field.create([\n  File "/home/odoo/src/odoo/odoo/fields.py", line 4332, in create\n    self.write_batch(record_values, True)\n  File "/home/odoo/src/odoo/odoo/fields.py", line 4358, in write_batch\n    self.write_real(records_commands_list, create)\n  File "/home/odoo/src/odoo/odoo/fields.py", line 4547, in write_real\n    flush()\n  File "/home/odoo/src/odoo/odoo/fields.py", line 4503, in flush\n    comodel.create(to_create)\n  File "<decorator-gen-151>", line 2, in create\n  File "/home/odoo/src/odoo/odoo/api.py", line 415, in _model_create_multi\n    return create(self, arg)\n  File "/home/odoo/src/odoo/addons/mail/models/mail_message.py", line 611, in create\n    values[\'reply_to\'] = self._get_reply_to(values)\n  File "/home/odoo/src/odoo/addons/mail/models/mail_message.py", line 1246, in _get_reply_to\n    return records._notify_get_reply_to(default=email_from)[res_id]\nKeyError: 634\n'>
     "mobile",
     "name",
     "phone",
-    'receivable_debt_ids', # campo one2many
+    "receivable_debt_ids",  # campo one2many
     "ref",
     "sale_order_count",
-    'sale_order_ids', # campo one2many
+    "sale_order_ids",  # campo one2many
     "sale_warn",
     "street",
     "state_id",
     "street2",
     "supplier",
-    "supplier_invoice_count",
+    # "supplier_invoice_count", #para prueba
     "total_invoiced",
     "trust",
     # "user_ids", # campo one2many

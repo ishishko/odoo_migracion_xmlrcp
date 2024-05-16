@@ -142,10 +142,17 @@ class CreateXMLRCP:
                 )
                 n += 1
             except Exception as e:
-                print(f"145 - {regs}")
+                print("==============================================================")
+                print(f"146 - {regs}")
+                print("==============================================================")
+                print(f'>>>>> {e}')
+                print("==============================================================")
+                continua = input("<<<<< Continuar con la escritura de datos? (y/n) >>>>> ")
+                if continua != "y":
+                    sys.exit()
                 continue
-            print(f">>>>> {regs}")
-            # print(">>>>> Creados", n, "de", len(data), "<<<<<", end="\r")
+            # print(f">>>>> {regs}")
+            print(">>>>> Creados", n, "de", len(data), "<<<<<", end="\r")
         print("==============================================================")
         print("===== Initial sample =====")
         print(">>>>>", data[0], "<<<<<")
@@ -193,7 +200,7 @@ class CreateXMLRCP:
                 if key in l_one2many and item[key] != []:
                     l = []
                     for id in item[key]:
-                        l.append((0,0,{'id':id}))
+                        l.append((0, 0, {"id": id}))
                     item[key] = l
             data.append(item)
             n = n + 1
@@ -228,16 +235,20 @@ class CreateXMLRCP:
         del ids[id_corrupt]
         # -----------------------------------------
 
-        # divmos la lista de "ids" en una lista de sublistas "div"
-        div = self.__div_list(ids)
         if len(ids) >= self.tamano:
             answer = input("<<<<< Continuar con la lectura de registros? (y/n) >>>>> ")
-            # # si desea continuar debe seleccionar "y" o finaliza
+            # si desea continuar debe seleccionar "y" o finaliza
             if answer != "y":
                 sys, exit()
+
+            # divimos la lista de "ids" en una lista de sublistas "div"
+            div = self.__div_list(ids)
+
+            # declaramos varibles para  while
             mass_data = []
             n_reg = 0
             n = 0
+
             # recorre las sublistas dentro de "div"
             while n < len(div):
                 data = self.__mass_read_data(div[n], field_list)
@@ -245,35 +256,43 @@ class CreateXMLRCP:
                 n_reg += len(data)
                 print(">>>>> Obtenidos", n_reg, "de", len(ids), "<<<<<", end="\r")
                 n += 1
-                # if n_reg >= 10:
-                #     n = len(div)
+
             # Cambio de valores en campos especiales (selects, many2one, one2many, many2many)
             l_select, l_many2one, l_one2many, l_many2many, l_field = (
                 self.__models_props()
             )
             for key in field_list:
                 for item in mass_data:
+                    # select field type
                     if (
                         key in l_select
                         and item[key] != False
                         and type(item[key]) == type([])
                     ):
                         item[key] = item[key][0]
+
+                    # m2o field type
                     if key in l_many2one and item[key] != False:
                         item[key] = item[key][0]
-                    
+
+                    # m2m field type
+                    if key in l_many2many and item[key] != False:
+                        if item[key] != []:
+                            item[key] = item[key]
+
                     # o2m field type
                     if key in l_one2many and item[key] != []:
                         l = []
                         for id in item[key]:
-                            l.append((0,0,{'id':id}))
-                        try:        
+                            l.append((0, 0, {"id": id}))
+                        try:
                             item[key] = l
                         except Exception as e:
                             print("203 - ", e)
                             item[key] = []
-                            continue 
+                            continue
 
+            # Imprime info de la lectura
             print("===== Obtener Finalizado =====")
             print("===== Se han obtenido", n_reg, "de", len(ids), "Registros =====")
             print("==============================================================")
@@ -298,16 +317,11 @@ class CreateXMLRCP:
             return data
 
     # === Update keys registros Migracion ===
-    def update_data_keys(self, data_list, old_key, new_key):
-
-        # try:
-        #     sample = copy.deepcopy(data_list[0])
-        #     # print(sample)
-        # except Exception as e:
-        #     print(e, " |||| ", str(data_list))
+    def change_data_keys(self, data_list, old_key, new_key):
 
         # Copiamos la posicion 0 sin modificar origen
         sample = data_list[0].copy()
+
         # Cambia el valor de la key en la muestra
         sample[new_key] = sample.pop(old_key)
 
@@ -325,19 +339,14 @@ class CreateXMLRCP:
         if start_up != "y":
             sys.exit()
         n = 0
+
         print(
-            "===== Actualizando",
-            old_key,
-            "por",
-            new_key,
-            "en",
-            len(data_list),
-            " =====",
+            f'===== Actualizando "{old_key}" por "{new_key}" en {len(data_list)} ====='
         )
-        # Recorro diccionario
+
+        # Itero diccionario
         for data in data_list:
             # Cambia los valores de la key
-            # print(data[0])
             data[new_key] = data.pop(old_key)
             n += 1
         print("==============================================================")
@@ -451,7 +460,7 @@ class CreateXMLRCP:
             valor = next(iter(field.values()))
             print(">>>>>", f"{key}: {valor}")
         print("==============================================================")
-        print("----- Campos utilizado por modelo", len(field_use), "-----")
+        print("===== Campos utilizado por modelo", len(field_use), "=====")
         print("==============================================================")
         print(">>>> Lista de campos sin usar:", field_no_use)
         print("==============================================================")
@@ -479,23 +488,24 @@ class CreateXMLRCP:
         fields_no_find.sort()
         fields_rest.sort()
 
-        print("--------------------------------------------------------------")
-        print(">>>> Lista de campos coincidentes:", fields_find)
-        print(">>>> Campos coincidentes:", len(fields_find))
-        print("--------------------------------------------------------------")
-        print("--------------------------------------------------------------")
-        print(">>>> Lista de campos sin coincidencias:", fields_no_find)
-        print(">>>> Campos sin coincidencias:", len(fields_no_find))
-        print("--------------------------------------------------------------")
-        print("--------------------------------------------------------------")
-        print(">>>> Lista de campos destino:", fields_rest)
-        print(">>>> Campos destino:", len(fields_rest))
-        print("--------------------------------------------------------------")
+        print("==============================================================")
+        print(f"===== Campos coincidentes: {len(fields_find)} =====")
+        print("===== Lista de campos coincidentes:")
+        print(f">>>>> {fields_find}")
+        print("==============================================================")
+        print(f"===== Campos sin coincidencias:, {len(fields_no_find)}")
+        print("===== Lista de campos sin coincidencias:")
+        print(f">>>>> {fields_no_find}")
+        print("==============================================================")
+        print(f"===== Campos destino:, {len(fields_rest)} =====")
+        print("===== Lista de campos destino:")
+        print(f">>>>> {fields_rest}")
+        print("==============================================================")
 
         # print(fields_list['write_date'])
 
-    # Devuelve campos especiales
-    def models_props(self):
+    # === Devuelve campos por tipo ===
+    def models_fields_types(self):
         selects, many2one, one2many, many2many, fields = self.__models_props()
         selects.sort()
         many2many.sort()
@@ -523,3 +533,27 @@ class CreateXMLRCP:
         print(f">>>>> Campos many2many {len(many2many)} <<<<<")
         print(f" {many2many}")
         print("==============================================================")
+
+    # === Devuelve informacion tecnica de los campos ===
+    def models_field_props(self, fields_list=[]):
+        print("==============================================================")
+        if fields_list == []:
+            print("============ Debe ingresar una lista de campos ===============")
+            print("==============================================================")
+            sys, exit()
+
+        fields_props = self.models.execute_kw(
+            self.dbname, self.userID, self.pwd, self.model, "fields_get", [[]]
+        )
+
+        fields_list.sort()
+
+        for name in fields_list:
+            for field in fields_props.items():
+                if name == field[0]:
+                    props_campo = {k: field[1][k] for k in sorted(field[1])}
+                    print(f'===== Props campo "{field[0]}" =====')
+                    print(f">>>>> {props_campo} ")
+                    print(
+                        "=============================================================="
+                    )

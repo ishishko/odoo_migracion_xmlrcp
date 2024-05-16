@@ -32,12 +32,16 @@ Importacion de clientes:
 
 
     Campos A revisar
-    image (todos)
-    gross 
-        no hay gross_income_jurisdiction_ids
+        campos chatter
+            message_follower_ids
+            activity_ids
+            message_ids
+        image (todos)
+        gross 
+            no hay gross_income_jurisdiction_ids
 
-    display_name
-        Analizar si necesita ser cargado o se arma solo al agregar el nombre del producto
+        display_name
+            Analizar si necesita ser cargado o se arma solo al agregar el nombre del producto
 
 
-    el elemento read debuelve una lista de 1 elemento
+        el elemento read debuelve una lista de 1 elemento
