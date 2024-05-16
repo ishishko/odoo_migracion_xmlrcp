@@ -36,6 +36,17 @@ Importacion de clientes:
             message_follower_ids
             activity_ids
             message_ids
+        modelos chatter
+            res.users
+            mail.activity
+            mail.followers
+            mail.compose.message
+
+        modelo adjuntos
+            ir.attachment
+            
+        'type': 'html'
+        
         image (todos)
         gross 
             no hay gross_income_jurisdiction_ids

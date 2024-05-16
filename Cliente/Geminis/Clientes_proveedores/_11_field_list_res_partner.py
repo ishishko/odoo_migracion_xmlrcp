@@ -152,7 +152,7 @@ field_list_check = [
     "function",
     # "gross_income_number",
     # "gross_income_type",
-    "invoice_ids",  # campo one2many
+    # "invoice_ids",  # campo one2many
     "is_company",
     "lang",
     # "main_id_category_id", # no encontrado
@@ -161,7 +161,7 @@ field_list_check = [
     "mobile",
     "name",
     "phone",
-    "receivable_debt_ids",  # campo one2many
+    # "receivable_debt_ids",  # campo one2many
     "ref",
     "sale_order_count",
     "sale_order_ids",  # campo one2many

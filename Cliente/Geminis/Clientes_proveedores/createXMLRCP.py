@@ -20,7 +20,7 @@ class CreateXMLRCP:
         self.common = ""
         self.userID = ""
         self.models = ""
-        self.tamano = 500
+        self.tamano = 1000
         self.start = self.__start()
 
     # === Test conexion y UserID ===
@@ -84,7 +84,7 @@ class CreateXMLRCP:
 
     # ==============================================================
     # === Obtener IDs ===
-    def search_ids(self, conditions=[["name", "!=", ""]]):
+    def search_ids(self, conditions=[["id", "!=", 0]]):
         data = self.models.execute_kw(
             self.dbname, self.userID, self.pwd, self.model, "search", [conditions]
         )
@@ -166,7 +166,7 @@ class CreateXMLRCP:
     # === Leer Campos de lista de IDs ===
     # ids_list: lista de ids de registros a leer
     # field_list: lista de campos a obtener de cada registro
-    def read_data(self, ids_list, field_list=["name"]):
+    def read_data(self, ids_list, field_list=["id"]):
         print("==============================================================")
         print("===== Obteniedo datos de lista =====")
         data = []
@@ -236,19 +236,20 @@ class CreateXMLRCP:
     # === Leer Campos de lista de IDs ===
     # conditions: Establecer condiciones del Search
     # field: lista de campos a obtener de cada registro
-    def mass_read_data(self, field_list=["name"], conditions=[["name", "!=", ""]]):
+    def mass_read_data(self, field_list=["id"], conditions=[["id", "!=", 0]]):
         # buscamos ids para verificar migracion masiva
         ids = self.search_ids(conditions)
 
-        # eliminar campo corrupto-----------------
-        id_corrupt = 0
-        n = 0
-        for id in ids:
-            if id == 16376:
-                id_corrupt = n
-            n += 1
-        del ids[id_corrupt]
-        # -----------------------------------------
+        # # eliminar campo corrupto-----------------
+        # id_corrupt = 0
+        # n = 0
+        # if len(ids) != 0:
+        #     for id in ids:
+        #         if id == 16376:
+        #             id_corrupt = n
+        #         n += 1
+        #     del ids[id_corrupt]
+        # # -----------------------------------------
 
         if len(ids) >= self.tamano:
             answer = input("<<<<< Continuar con la lectura de registros? (y/n) >>>>> ")
@@ -295,17 +296,17 @@ class CreateXMLRCP:
                         if item[key] != []:
                             item[key] = item[key]
 
-                    # o2m field type
-                    if key in l_one2many and item[key] != []:
-                        l = []
-                        for id in item[key]:
-                            l.append((0, 0, {"id": id}))
-                        try:
-                            item[key] = l
-                        except Exception as e:
-                            print("203 - ", e)
-                            item[key] = []
-                            continue
+                    # # o2m field type
+                    # if key in l_one2many and item[key] != []:
+                    #     l = []
+                    #     for id in item[key]:
+                    #         l.append((0, 0, {"id": id}))
+                    #     try:
+                    #         item[key] = l
+                    #     except Exception as e:
+                    #         print("203 - ", e)
+                    #         item[key] = []
+                    #         continue
 
             # Imprime info de la lectura
             print("===== Obtener Finalizado =====")
@@ -319,17 +320,22 @@ class CreateXMLRCP:
             print("==============================================================")
             return mass_data
         else:
-            data = self.__mass_read_data(div[0], field_list)
-            print("===== Obtener Finalizado -----")
-            print(
-                "===== Se han obtenido", len(data), "de", len(data), "Registros ====="
-            )
-            print("===== Initial sample =====")
-            print(">>>>>", data[0], "<<<<<")
-            print("===== Final sample =====")
-            print(">>>>>", len(data), "<<<<<")
-            print("==============================================================")
-            return data
+            if len(ids) != 0:
+                data = self.__mass_read_data(ids, field_list)
+                print("===== Obtener Finalizado -----")
+                print(
+                    "===== Se han obtenido", len(data), "de", len(data), "Registros ====="
+                )
+                print("===== Initial sample =====")
+                print(">>>>>", data[0], "<<<<<")
+                print("===== Final sample =====")
+                print(">>>>>", data[len(data)-1], "<<<<<")
+                print("==============================================================")
+                return data
+            else:
+                print("==============================================================")
+                print('================= Consulta sin coincidencias =================')
+                print("==============================================================")
 
     # === Update keys registros Migracion ===
     def change_data_keys(self, data_list, old_key, new_key):
@@ -529,6 +535,7 @@ class CreateXMLRCP:
         fields.sort()
         ne = len(selects) + len(many2one) + len(one2many) + len(many2many)
         print("==============================================================")
+        print(f'===== Modelo "{self.model}" =====')
         print(f"===== Campos S/C {len(fields)} =====")
         print("==============================================================")
         print(f" {fields}")
