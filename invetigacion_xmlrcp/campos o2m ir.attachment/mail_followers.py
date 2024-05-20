@@ -51,7 +51,7 @@ clientes_origen.models_fields_types()
 
 # el modelo tiene 28 campos
 field_listOrigen = [
-    "url",
+    "datas",
 ]
 
 # veo las propiedades de todos los campos
@@ -61,4 +61,4 @@ clientes_origen.models_field_props(field_listOrigen)
 # El campo "datas_fname" tiene el nombre del archivo
 # El campo "db_datas" es Bina
 
-clientes_origen.mass_read_data(field_listOrigen,[['url','!=',False]])
+clientes_origen.mass_read_data(field_listOrigen,[['datas','=',"SAMALEA ESTHER ELBA 1426518-1.PNG"]])

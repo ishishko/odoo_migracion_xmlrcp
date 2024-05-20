@@ -318,7 +318,8 @@ class CreateXMLRCP:
             print("===== Final sample =====")
             print(">>>>>", mass_data[(len(mass_data)) - 1], "<<<<<")
             print("==============================================================")
-            return mass_data
+            for data in mass_data:
+                print( mass_data)
         else:
             if len(ids) != 0:
                 data = self.__mass_read_data(ids, field_list)
@@ -331,7 +332,8 @@ class CreateXMLRCP:
                 print("===== Final sample =====")
                 print(">>>>>", data[len(data)-1], "<<<<<")
                 print("==============================================================")
-                return data
+                for reg in data:
+                    print(reg )
             else:
                 print("==============================================================")
                 print('================= Consulta sin coincidencias =================')
