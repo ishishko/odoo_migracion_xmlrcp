@@ -1,0 +1,42 @@
+Analisis 'product.template'
+
+Declaramos el modelo a impactar
+
+Creamos conxion a BBDD origen
+    1 - Utilizamos .models_use() para identificar campos y su uso en el proyecto.
+    Determinamos campos usados "field_use", campos sin usos "field_no_used" y de sistema "field_system"
+    2 - Los campos o2m y m2m no se migran en primera instancia, los discrimonamos ejecutando .models_fields_types(field_use)
+    Agregamos campos o2m y m2m a "field_special" para campos de primer migracion
+    3 - Cargamos campo en "field_ignore" y "field_special" volvemos a correr .models_use(field_ignore+field_special).
+    Cargamos los campos utilizados en "field_use_check"
+    
+
+Creamos conexxion a BBDD destino
+    1 - Utilizamos .models_compare_fields(field_list_check). Obtenemos keys_coincidentes, keys_s_coincidentes y keys_destino
+    2 - Determinamos los campos a cambiar sus keys_s_coincidentes
+    image => image_1024
+    image_medium => image_512
+    image_small => image_256
+    pos_categ_id => pos_categ_ids
+    3 - Eliminamos los campos con equivalencias de la "Lista de campos sin coincidencias" y se la asignamos a field_no_fiend 
+    4 - Ejecutamos nuevamente .models_compare_fields(field_list_check) y verificamos que los unicos campos sin coincidencias sean los que cambiamos keys
+
+Leemos los datos de origen
+    Ejecutamos "data_g = clientes_origen_g.mass_read_data(field_list_check)" para obtener los datos de origen.
+    Realizamos todos los cambios de keys sobre
+        .change_data_keys(data_g, 'image', 'image_1920')
+        .change_data_keys(data_g, 'image_medium', 'image_1024')
+        .change_data_keys(data_g, 'image_small', 'image_128')
+        .change_data_keys(data_g, 'pos_categ_id', 'pos_categ_ids')
+
+Creamos los datos en BBDD destino
+    Ejecutamos cliente_destino.mass_create_reg(data_g)
+
+Errores corregidos
+    1 - 'responsible_id', # no existen las ids de usuarios
+        Se elimina campo hasta que no se creen usuario y pueda asignar ids
+    2 - 'categ_id', # no existen categorias
+        Se elimina campo hasta que no se cargue categorias.
+    3 - 'pos_categ_id', # Wrong value
+        Se elimina campo hsata que haya pos_categ_id
+
