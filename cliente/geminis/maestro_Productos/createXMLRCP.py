@@ -387,8 +387,10 @@ class CreateXMLRCP:
         print("==============================================================")
         return data_list
 
-    def update_reg_values(self, data_list, old_model):
-        pass
+    def change_data_values(self, data_list, field_key, field_value):
+        for i in range(len(data_list)):
+            data_list[i][field_key] = field_value
+        return data_list
 
     # === Devuelve campos usados con cantidad de usos ===
     # === Separa los campos por tipo para migracion ordenada ===
@@ -405,7 +407,7 @@ class CreateXMLRCP:
         # fields_name = fields_name[:10]
         
         # Busqueda campos especiales || Blacklist
-        fields_error = ["email_formatted"]
+        fields_error = []
         fields_BL = field_ignore + fields_error
         # Eliminar campos especiales de
         fields_name_BL = [x for x in fields_name if x not in fields_BL]

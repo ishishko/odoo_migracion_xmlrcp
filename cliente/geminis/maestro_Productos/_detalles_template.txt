@@ -1,5 +1,6 @@
 Analisis 'product.template'
 
+Geminis
 Declaramos el modelo a impactar
 
 Creamos conxion a BBDD origen
@@ -14,9 +15,9 @@ Creamos conxion a BBDD origen
 Creamos conexxion a BBDD destino
     1 - Utilizamos .models_compare_fields(field_list_check). Obtenemos keys_coincidentes, keys_s_coincidentes y keys_destino
     2 - Determinamos los campos a cambiar sus keys_s_coincidentes
-    image => image_1024
-    image_medium => image_512
-    image_small => image_256
+    image => image_1920
+    image_medium => image_1024
+    image_small => image_128
     pos_categ_id => pos_categ_ids
     3 - Eliminamos los campos con equivalencias de la "Lista de campos sin coincidencias" y se la asignamos a field_no_fiend 
     4 - Ejecutamos nuevamente .models_compare_fields(field_list_check) y verificamos que los unicos campos sin coincidencias sean los que cambiamos keys
@@ -40,3 +41,10 @@ Errores corregidos
     3 - 'pos_categ_id', # Wrong value
         Se elimina campo hsata que haya pos_categ_id
 
+Rake
+Creamos conexxion a BBDD destino
+    1 - Utilizamos .models_compare_fields(field_list_check). Obtenemos keys_coincidentes, keys_s_coincidentes y keys_destino
+    2 - Determinamos los campos a cambiar sus keys_s_coincidentes 
+        image => image_1920
+        image_medium => image_1024
+        image_small => image_128
