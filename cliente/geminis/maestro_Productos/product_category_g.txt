@@ -1,0 +1,10 @@
+===== Campos sin coincidencias:, 2
+===== Lista de campos sin coincidencias:
+>>>>> ['parent_left', 'parent_right']
+==============================================================
+
+
+===== Campos destino:, 17 =====
+===== Lista de campos destino:
+>>>>> ['child_id', 'create_date', 'create_uid', 'filter_for_stock_putaway_rule', 'packaging_reserve_method', 'parent_path', 'product_properties_definition', 'property_account_creditor_price_difference_categ', 'property_stock_account_input_categ_id', 'property_stock_account_output_categ_id', 'property_stock_valuation_account_id', 'putaway_rule_ids', 'removal_strategy_id', 'route_ids', 'total_route_ids', 'write_date', 'write_uid']
+==============================================================

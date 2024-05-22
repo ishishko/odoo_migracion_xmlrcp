@@ -28,6 +28,7 @@ clientes_origen_g = CreateXMLRCP(
 )
 
 clientes_origen_g.models_use()
+clientes_origen_g.models_fields_types(field_use_g)
 
 
 # ========================================================================
