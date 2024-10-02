@@ -615,26 +615,22 @@ class CreateXMLRCP:
     def models_update(self, data_origen, data_destino):
         data_origen_dict = {actualizacion['name'].strip(): [actualizacion['image'], actualizacion['image_medium'], actualizacion['image_small']] for actualizacion in data_origen}
         c = 0
-        for data_d in data_destino:
-            try:
-                if data_d['name'].strip() in data_origen_dict.keys():
-                    print(c)
-                    c = c+1
-                    data_d['image_1920'] = data_origen_dict[data_d['name']][0]
-                    data_d['image_1024'] = data_origen_dict[data_d['name']][1]
-                    data_d['image_1920'] = data_origen_dict[data_d['name']][2]
-                else:
-                    print(data_d)
-            except Exception as e:
-                print(e)
-                continue
-
         # for data_d in data_destino:
-        #     for data_o in data_origen:
-        #         print(data_d['name'])
-        #         print(data_o['name'])
-        #         return
-        #     return
+        #     try:
+        #         if data_d['name'].strip() in data_origen_dict.keys():
+        #             print(c)
+        #             c = c+1
+        #             data_d['image_1920'] = data_origen_dict[data_d['name']][0]
+        #             data_d['image_1024'] = data_origen_dict[data_d['name']][1]
+        #             data_d['image_1920'] = data_origen_dict[data_d['name']][2]
+        #         else:
+        #             print(data_d)
+        #     except Exception as e:
+        #         print(e)
+        #         continue
+        
+                    
+            
         
             
         
