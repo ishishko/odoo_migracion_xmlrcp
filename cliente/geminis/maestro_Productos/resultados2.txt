@@ -1,0 +1,278 @@
+{'destino': 'Alquiler mensual cama ortopédica con colchón de goma espuma y barandas ', 'origen': 'Alquiler mensual cama ortopédica con colchón de goma espuma y barandas '}
+{'destino': 'COMODATO MULETAS', 'origen': 'COMODATO MULETAS'}
+{'destino': 'COMODATO PORTA SUERO', 'origen': 'COMODATO PORTA SUERO'}
+{'destino': 'COMODATO TRAPECIO', 'origen': 'COMODATO TRAPECIO'}
+{'destino': 'COMODATO BASTON TRIPODE', 'origen': 'COMODATO BASTON TRIPODE'}
+{'destino': 'COMODATO SILLA DE RUEDAS  ', 'origen': 'COMODATO SILLA DE RUEDAS  '}
+{'destino': 'COMODATO SILLA DE RUEDAS  ', 'origen': 'COMODATO SILLA DE RUEDAS'}
+{'destino': 'COMODATO ANDADOR PLEGABLE ', 'origen': 'COMODATO ANDADOR PLEGABLE '}
+{'destino': 'COMODATO SILLA DE RUEDAS', 'origen': 'COMODATO SILLA DE RUEDAS  '}
+{'destino': 'COMODATO SILLA DE RUEDAS', 'origen': 'COMODATO SILLA DE RUEDAS'}
+{'destino': 'COMODATO TABLA DE PRONO', 'origen': 'COMODATO TABLA DE PRONO'}
+{'destino': 'COMODATO BIPEDESTADOR ', 'origen': 'COMODATO BIPEDESTADOR '}
+{'destino': 'COMODATO SILLA ULTRALIVIANA', 'origen': 'COMODATO SILLA ULTRALIVIANA'}
+{'destino': 'Silla Pediatrica', 'origen': 'Silla Pediatrica'}
+{'destino': 'COMODATO SILLA RECLINABLE', 'origen': 'COMODATO SILLA RECLINABLE'}
+{'destino': ' ALQUILER 1 (una) SILLA PARA BAÑO CON RUEDAS', 'origen': ' ALQUILER 1 (una)SILLA PARA BAÑO CON RUEDAS'}
+{'destino': 'PRODUCTOS DE ALQUILER', 'origen': 'PRODUCTOS DE ALQUILER'}
+{'destino': 'BARANDAS PINTADAS FABORT', 'origen': 'BARANDAS PINTADAS FABORT'}
+{'destino': 'ALQUILER MENSUAL  20 CAMAS ORTOPÉDICAS CON DOS BARANDAS ACERO', 'origen': 'ALQUILER MENSUAL  20 CAMAS ORTOPÉDICAS CON DOS BARANDAS ACERO'}
+{'destino': 'Alquiler de Cama Ortopédica Interior - Valor Diario', 'origen': 'Alquiler de Cama Ortopédica Interior - Valor Diario'}
+{'destino': 'Alquiler Cama Eléctrica Interior - Valor Diario', 'origen': 'Alquiler Cama Eléctrica Interior - Valor Diario'}
+{'destino': 'Alquiler de Colchón Antiescaras Interior - Valor Diario', 'origen': 'Alquiler de Colchón Antiescaras Interior - Valor Diario'}
+{'destino': 'Alquiler de Silla de Ruedas (hasta 100 kg) Interior - valor diario', 'origen': 'Alquiler de Silla de Ruedas (hasta 100 kg) Interior - valor diario'}
+{'destino': 'PRODUCTO ORTOPEDICO', 'origen': 'PRODUCTO ORTOPEDICO'}
+{'destino': 'SILLA RUEDAS', 'origen': 'SILLA RUEDAS'}
+{'destino': 'SILLA REACH', 'origen': 'Silla Reach'}
+{'destino': 'ALMOHADA CERVICAL  VISCO C/ FUNDA 50 X 35 X 10 CM', 'origen': 'ALMOHADA CERVICAL  VISCO C/ FUNDA 50 X 35 X 10 CM'}
+{'destino': 'ALMOHADA RODILLO 15 X 57 CM', 'origen': 'ALMOHADA RODILLO 15 X 57 CM'}
+{'destino': 'ALMOHADA TRIANGULO CHICO BASE 25 / ALTO 15 / ANCHO 30', 'origen': 'ALMOHADA TRIANGULO CHICO BASE 25 / ALTO 15 / ANCHO 30'}
+{'destino': 'ALMOHADA TRIANGULO GRANDE HOSPITALARIO ', 'origen': 'ALMOHADA TRIANGULO GRANDE HOSPITALARIO '}
+{'destino': 'ALMOHADA VISCO C/ FUNDA 60X35X40', 'origen': 'ALMOHADA VISCO C/ FUNDA 60X35X40'}
+{'destino': 'ALMOHADILLA DEDO MARTILLO GEL PURO - DEMA', 'origen': 'ALMOHADILLA DEDO MARTILLO GEL PURO - DEMA'}
+{'destino': 'ALMOHADON ABDUCTOR DE CADERA', 'origen': 'ALMOHADON ABDUCTOR DE CADERA'}
+{'destino': 'ALMOHADON CUADRADO ALTA DENSIDAD 41 X 41 X 9', 'origen': 'ALMOHADON CUADRADO ALTA DENSIDAD 41 X 41 X 9'}
+{'destino': 'ALMOHADON ERGO PUNTUAL 41 X 41 X 8 CM', 'origen': 'ALMOHADON ERGO PUNTUAL 41 X 41 X 8 CM'}
+{'destino': 'ALMOHADON ERGO PUNTUAL 46 X 41 X 8 CM', 'origen': 'ALMOHADON ERGO PUNTUAL 46 X 41 X 8 CM'}
+{'destino': 'ALMOHADON ERGO PUNTUAL 50 X 41 X 8 CM', 'origen': 'ALMOHADON ERGO PUNTUAL 50 X 41 X 8 CM'}
+{'destino': 'ALMOHADON PIERNA / RODILLA - D.E.M.A. ALTA DENSIDAD', 'origen': 'ALMOHADON PIERNA / RODILLA - D.E.M.A. ALTA DENSIDAD'}
+{'destino': 'ALMOHADON ROLL - DE ROTACION - NUBIAL', 'origen': 'ALMOHADON ROLL - DE ROTACION - NUBIAL'}
+{'destino': 'ALMOHADON SANITARIO D.E.M.A.', 'origen': 'ALMOHADON SANITARIO D.E.M.A.'}
+{'destino': 'ALMOHADON TALONERA/CODERA DE VELLON SILICONADO', 'origen': 'ALMOHADON TALONERA/CODERA DE VELLON SILICONADO'}
+{'destino': 'ALMOHADON VELLON SILICONADO 30 X 30', 'origen': 'ALMOHADON VELLON SILICONADO 30 X 30'}
+{'destino': 'ALMOHADÓN ERGOPUNTUAL - ECO', 'origen': 'ALMOHADÓN ERGOPUNTUAL - ECO'}
+{'destino': 'ANDADOR BEATLE', 'origen': 'ANDADOR BEATLE'}
+{'destino': 'ANDADOR CROCODRILE', 'origen': 'ANDADOR CROCODRILE'}
+{'destino': 'ANDADOR KLIP', 'origen': 'ANDADOR KLIP'}
+{'destino': 'ANDADOR POSTERIOR', 'origen': 'ANDADOR POSTERIOR'}
+{'destino': 'Almohadilla electrica cintura SILFAB', 'origen': 'Almohadilla electrica cintura SILFAB'}
+{'destino': 'Andador C/ Asiento Naylon Regulable en altura', 'origen': 'Andador C/ Asiento Naylon Regulable en altura'}
+{'destino': 'Andador Reforzado Sin ruedas - Drive', 'origen': 'Andador Reforzado Sin ruedas - Drive'}
+{'destino': 'Andador aluminio con asiento - Iallo', 'origen': 'Andador aluminio con asiento - Iallo'}
+{'destino': 'Andador plegable reforzado s/ Ruedas ESCALADA', 'origen': 'Andador plegable reforzado s/ Ruedas ESCALADA'}
+{'destino': 'Andador plegable reforzado s/ Ruedas ESCALADA', 'origen': 'Andador plegable reforzado s/ Ruedas ESCALADA'}
+{'destino': 'BALANZA - SILFAB (digital) 200 Kg.', 'origen': 'BALANZA - SILFAB (digital) 200 Kg.'}
+{'destino': 'BALANZA - madera SILFAB', 'origen': 'BALANZA - madera SILFAB'}
+{'destino': 'BASTON 4 PUNTOS DE APOYO CHICO - IALLO', 'origen': 'BASTON 4 PUNTOS DE APOYO CHICO - IALLO'}
+{'destino': 'BASTÓN ALUMINIO REGULABLE - TURQUESA/ VIOLETA - IALLO', 'origen': 'BASTÓN ALUMINIO REGULABLE - TURQUESA/ VIOLETA - IALLO'}
+{'destino': 'BAÑO FÁCIL', 'origen': 'BAÑO FÁCIL'}
+{'destino': 'BIPE BEE', 'origen': 'BIPE BEE'}
+{'destino': 'Bacinilla Plástica MASSUAR', 'origen': 'Bacinilla Plástica MASSUAR'}
+{'destino': 'Barral Pintado 60cm', 'origen': 'Barral Pintado 60cm'}
+{'destino': 'Barral cromado 30cm', 'origen': 'Barral Cromado 30cm'}
+{'destino': 'Barral cromado 30cm', 'origen': 'Barral cromado 30cm'}
+{'destino': 'Barral cromado 45cm', 'origen': 'Barral Cromado 45cm'}
+{'destino': 'Barral cromado 45cm', 'origen': 'Barral cromado 45cm'}
+{'destino': 'Barral cromado 60cm', 'origen': 'Barral cromado 60cm'}
+{'destino': 'Barral cromado 70cm', 'origen': 'Barral cromado 70cm'}
+{'destino': 'Baston cuadruple aluminio regulable mango T MASSUAR', 'origen': 'baston cuadruple aluminio regulable mango T Massuar'}
+{'destino': 'Bicicleta', 'origen': 'Bicicleta'}
+{'destino': 'Bipedestador', 'origen': 'BIPEDESTADOR'}
+{'destino': 'Bipedestador', 'origen': 'Bipedestador'}
+{'destino': 'Bolsa porta gel DEMA', 'origen': 'Bolsa porta gel DEMA'}
+{'destino': 'Bombacha para incontinencia CEVAMED', 'origen': 'bombacha para incontinencia CEVAMED'}
+{'destino': 'Bota Walker COLTEX', 'origen': 'bota walker COLTEX'}
+{'destino': 'Bota Walker Eco ', 'origen': 'bota walker Eco '}
+{'destino': 'Butaca Flamingo', 'origen': 'Butaca Flamingo'}
+{'destino': 'Butaca Kidslover', 'origen': 'Butaca Kidslover'}
+{'destino': 'Butaca Soft Touch Booster', 'origen': 'Butaca Soft Touch Booster'}
+{'destino': 'Butaca X-Panda', 'origen': 'Butaca X-Panda'}
+{'destino': 'CABESTRILLO SIMPLE D.E.M.A.', 'origen': 'CABESTRILLO SIMPLE D.E.M.A.'}
+{'destino': 'CALZADO DEPORTIVO CÓDIGO 300', 'origen': 'CALZADO DEPORTIVO CÓDIGO 300'}
+{'destino': 'CASCO', 'origen': 'CASCO'}
+{'destino': 'CHALECO CORRECTOR POSTURAL - ECO ', 'origen': 'CHALECO CORRECTOR POSTURAL - ECO '}
+{'destino': 'CODERA TENISTA - ECO', 'origen': 'CODERA TENISTA - ECO'}
+{'destino': 'CONCEPTO NO GRAVADO', 'origen': 'CONCEPTO NO GRAVADO'}
+{'destino': 'CORSET DE JEWETT REGULABLE', 'origen': 'CORSET DE JEWETT REGULABLE'}
+{'destino': 'CORSET DORSO LUMBAR  DEMA T 1/4', 'origen': 'CORSET DORSO LUMBAR  DEMA T 1/4'}
+{'destino': 'CORSET DORSO LUMBAR TALLE ESPECIAL DEMA T 5', 'origen': 'CORSET DORSO LUMBAR TALLE ESPECIAL DEMA T 5'}
+{'destino': 'CORSET SACRO LUMBAR TALLE ESPECIAL DEMA  X33CM ', 'origen': 'CORSET SACRO LUMBAR TALLE ESPECIAL DEMA  X33CM '}
+{'destino': 'CORSET SACRO LUMBAR X28 CM DEMA T 1/ 4', 'origen': 'CORSET SACRO LUMBAR X28 CM DEMA T 1/ 4'}
+{'destino': 'CORSET SACRO LUMBAR X33CM DEMA T 1/4', 'origen': 'CORSET SACRO LUMBAR X33CM DEMA T 1/4'}
+{'destino': 'Calzado suela Modelo 700', 'origen': 'Calzado suela Modelo 700'}
+{'destino': 'Cinta Kinesiotape - Leukotape', 'origen': 'Cinta Kinesiotape - Leukotape'}
+{'destino': 'Cinta amarillo  THERABAND TUBO  METRO', 'origen': 'Cinta amarillo  THERABAND TUBO  METRO'}
+{'destino': 'Cinta azul  THERABAND TUBO METRO', 'origen': 'Cinta azul  THERABAND TUBO METRO'}
+{'destino': 'Cinta kinesio PTM', 'origen': 'Cinta kinesio ptm'}
+{'destino': 'Cinta rojo  THERABAND TUBO METRO', 'origen': 'Cinta rojo  THERABAND TUBO METRO'}
+{'destino': 'Cinta verde  THERABAND TUBO METRO', 'origen': 'Cinta verde  THERABAND TUBO METRO'}
+{'destino': 'Cinturon abdominal a1', 'origen': 'Cinturon abdominal a1'}
+{'destino': 'Collar HEADMASTER', 'origen': 'Collar HEADMASTER'}
+{'destino': 'Confeccion de Ortesis y atencion a pte', 'origen': 'Confeccion de Ortesis y atencion a pte'}
+{'destino': 'Corpiño para protesis Gelform Talle 80', 'origen': 'corpiño para protesis Gelform Talle 80'}
+{'destino': 'Cuota', 'origen': 'Cuota'}
+{'destino': 'DIESEL', 'origen': 'DIESEL'}
+{'destino': 'DIFERENCIA ALQUILER CAMA ELECTRICA', 'origen': 'DIFERENCIA ALQUILER CAMA ELECTRICA'}
+{'destino': 'DIFERENCIA ALQUILER CAMA ELECTRICA', 'origen': 'DIFERENCIA ALQUILER CAMA ELECTRICA'}
+{'destino': 'Diferencia Plantillas', 'origen': 'Diferencia Plantillas'}
+{'destino': 'Diferencia Plantillas TERMOCONFORMADAS', 'origen': 'Diferencia Plantillas TERMOCONFORMADAS'}
+{'destino': 'ELEVA INODORO C/ RESPALDO REGULABLE - IALLO', 'origen': 'ELEVA INODORO C/ RESPALDO REGULABLE - IALLO'}
+{'destino': 'ELEVA INODORO S/ RESPALDO / REGULABLE - IALLO', 'origen': 'ELEVA INODORO S/ RESPALDO / REGULABLE - IALLO'}
+{'destino': 'ESPALDERA - ELIL / TALLE 0-1-2-3-4', 'origen': 'ESPALDERA - ELIL / TALLE 0-1-2-3-4'}
+{'destino': 'ESTUDIO BIODINAMICO DE LA  MARCHA', 'origen': 'ESTUDIO BIODINAMICO DE LA  MARCHA'}
+{'destino': 'Envío a domicilio (caba)', 'origen': 'Envío a domicilio (caba)'}
+{'destino': 'Estabilizadores de rodilla ballenados', 'origen': 'Estabilizadores de rodilla ballenados'}
+{'destino': 'Estetoscopio p/Tensiómetro Aneroide I 1300', 'origen': 'Estetoscopio p/Tensiómetro Aneroide I 1300'}
+{'destino': 'Estetoscopio p/Tensiómetro Aneroide I 1300', 'origen': 'Estetoscopio p/Tensiómetro Aneroide I 1300'}
+{'destino': 'FAJA ALTA COMPRESIÓN - ELIL / TALLE 4-5', 'origen': 'FAJA ALTA COMPRESIÓN - ELIL / TALLE 4-5'}
+{'destino': 'FAJA ALTA COMPRESIÓN AIREADA - ELIL / TALLE 1-2-3-4-5', 'origen': 'FAJA ALTA COMPRESIÓN AIREADA - ELIL / TALLE 1-2-3-4-5'}
+{'destino': 'FAJA BAJA COMPRESIÓN 28 CM - TALLES 1-2-3-4-5', 'origen': 'FAJA BAJA COMPRESIÓN 28 CM - TALLES 1-2-3-4-5'}
+{'destino': 'FAJA BAJA COMPRESIÓN 28 CM / DEMA', 'origen': 'FAJA BAJA COMPRESIÓN 28 CM / DEMA'}
+{'destino': 'FCaMEDIDA', 'origen': 'FCaMEDIDA'}
+{'destino': 'FERULA AFO', 'origen': 'FERULA AFO'}
+{'destino': 'FERULA MANO ARTICULADA', 'origen': 'FERULA MANO ARTICULADA'}
+{'destino': 'Faja neoprene Ptm', 'origen': 'faja neoprene Ptm'}
+{'destino': 'Ferula (Ortesis) p/ Codo COLTEX', 'origen': 'Ferula (Ortesis) p/ Codo Coltex'}
+{'destino': 'Ferula Abductora  Cadera Hip- Control RUN-TEC', 'origen': 'Ferula Abductora  Cadera Hip- Control RUN-TEC'}
+{'destino': 'Ferula BRAQUEO PALMAR C/ PULGAR - Coltex', 'origen': 'ferula braqueo palmar c/pulgar Coltex'}
+{'destino': 'Ferula windell', 'origen': 'ferula windell'}
+{'destino': 'Funda para bota Walker Body care', 'origen': 'Funda para bota Walker Body care'}
+{'destino': 'INMOVILIZADOR DE RODILLA / ELIL - LARGO', 'origen': 'INMOVILIZADOR DE RODILLA / ELIL - LARGO'}
+{'destino': 'MEDIA IMPERFECTA - PANTY 20 30 mm hg LAUDA', 'origen': 'MEDIA IMPERFECTA - PANTY 20 30 mm hg LAUDA'}
+{'destino': 'MEDIA IMPERFECTA 3/4 - 20 30 mm hg LAUDA', 'origen': 'MEDIA IMPERFECTA 3/4 - 20 30 mm hg LAUDA'}
+{'destino': 'MEDIA IMPERFECTA 7/8 - 20 30 mm hg LAUDA', 'origen': 'MEDIA IMPERFECTA 7/8 - 20 30 mm hg LAUDA'}
+{'destino': 'MEDIA MUJER LAUDA PANTY PLUS 15-20 mm hg', 'origen': 'MEDIA MUJER LAUDA PANTY PLUS 15-20 mm hg'}
+{'destino': 'MEDIA MUJER LAUDA PANTY PLUS 8-15 mm hg', 'origen': 'MEDIA MUJER LAUDA PANTY PLUS 8-15 mm hg'}
+{'destino': 'MUÑEQUERA INMOVILIZADORA / FIBRA - 1 BARILLA', 'origen': 'MUÑEQUERA INMOVILIZADORA / FIBRA - 1 BARILLA'}
+{'destino': 'Mesa para cama MASSUAR', 'origen': 'Mesa para cama MASSUAR'}
+{'destino': 'NEBULIZADOR A PISTÓN SILFAB / N27', 'origen': 'NEBULIZADOR A PISTÓN SILFAB / N27'}
+{'destino': 'OXIMETRO DE PULSO DE DEDO YK80C. SILFAB', 'origen': 'OXIMETRO DE PULSO DE DEDO YK80C. SILFAB'}
+{'destino': 'PATENTE', 'origen': 'PATENTE'}
+{'destino': 'PEAJE', 'origen': 'PEAJE'}
+{'destino': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 10 CM', 'origen': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 10 CM'}
+{'destino': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 6 CM', 'origen': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 6 CM'}
+{'destino': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 8 CM', 'origen': 'PELOTA CON PINCHES AZUL - DIÁMETRO: 8 CM'}
+{'destino': 'PLANTILLAS', 'origen': 'plantillas'}
+{'destino': 'PLANTILLAS TOALLA', 'origen': 'PLANTILLAS TOALLA'}
+{'destino': 'Pantorrillera Elastica Elil el par', 'origen': 'Pantorrillera Elastica Elil el par'}
+{'destino': 'Pedalera silfab Común.', 'origen': 'Pedalera silfab Común.'}
+{'destino': 'Pelotas elongadoras  CARE-QUIP M 354', 'origen': 'Pelotas elongadoras  CARE-QUIP M 354'}
+{'destino': 'Pelotas elongadoras  CARE-QUIP M 355', 'origen': 'Pelotas elongadoras  CARE-QUIP M 355'}
+{'destino': 'Pesario SHAPE', 'origen': 'pesario SHAPE'}
+{'destino': 'Pipeta Aspiradora (envasada).', 'origen': 'Pipeta Aspiradora (envasada).'}
+{'destino': 'Plancha 10x10 MASTERPIE', 'origen': 'Plancha 10x10 MASTERPIE'}
+{'destino': 'Plantillas CUERO GRANEADO', 'origen': 'Plantillas CUERO GRANEADO'}
+{'destino': 'Plantillas SILICONA', 'origen': 'Plantillas SILICONA'}
+{'destino': 'Plantillas TOALLA ', 'origen': 'PLANTILLAS TOALLA'}
+{'destino': 'Plantillas VALENTE-VALENTI', 'origen': 'PLANTILLAS VALENTE-VALENTI'}
+{'destino': 'Producto a Medida', 'origen': 'Producto a Medida'}
+{'destino': 'Protector Lumbar CASI', 'origen': 'Protector Lumbar CASI'}
+{'destino': 'Protector de juanete.', 'origen': 'Protector de juanete.'}
+{'destino': 'Protesis Mamaria GELFORM N° 80', 'origen': 'protesis mamaria GELFORM N° 80'}
+{'destino': 'Protesis Mamaria GELFORM N°110', 'origen': 'protesis mamaria GELFORM N°110'}
+{'destino': 'Protesis Mamaria GELFORM N°120', 'origen': 'protesis mamaria GELFORM N°120'}
+{'destino': 'REDONDEO', 'origen': 'REDONDEO'}
+{'destino': 'REDONDEO', 'origen': 'redondeo'}
+{'destino': 'RODILLERA UNIVERSAL - ECO', 'origen': 'RODILLERA UNIVERSAL - ECO'}
+{'destino': 'Realce', 'origen': 'Realce'}
+{'destino': 'Redondeo', 'origen': 'REDONDEO'}
+{'destino': 'Redondeo', 'origen': 'redondeo'}
+{'destino': 'Reposera Inoxidable', 'origen': 'Reposera Inoxidable'}
+{'destino': 'Reposera Nono', 'origen': 'Reposera Nono'}
+{'destino': 'Reposera OFTER', 'origen': 'Reposera OFTER'}
+{'destino': 'Respaldo Classic', 'origen': 'Respaldo Classic'}
+{'destino': 'Respaldo J3 ALTO', 'origen': 'Respaldo J3 ALTO'}
+{'destino': 'Rodillera Monocéntrica Neoprene ELIL Talle 3', 'origen': 'Rodillera Monocéntrica Neoprene ELIL Talle 3'}
+{'destino': 'Rodillera neoprene con refuerzo rotuliano y velcro PTM', 'origen': 'rodillera neoprene con refuerzo rotuliano y velcro Ptm'}
+{'destino': 'SEPARADOR DE DEDO GEL PURO - DEMA', 'origen': 'SEPARADOR DE DEDO GEL PURO - DEMA'}
+{'destino': 'SEPARADOR DUO P/JUANETE GEL PURO / DEMA', 'origen': 'SEPARADOR DUO P/JUANETE GEL PURO / DEMA'}
+{'destino': 'SILLA BINGO', 'origen': 'SILLA BINGO'}
+{'destino': 'SOPORTE DE CLAVICULA - DEMA', 'origen': 'SOPORTE DE CLAVICULA - DEMA'}
+{'destino': 'SUPLEMENTO ELEVA INODORO C/ ASAS ACERO - ORT. MEDRANO', 'origen': 'SUPLEMENTO ELEVA INODORO C/ ASAS ACERO - ORT. MEDRANO'}
+{'destino': 'SUSS', 'origen': 'SUSS'}
+{'destino': 'Sabana Cubre Camilla CEVAMED', 'origen': 'sabana Cubre Camilla CEVAMED'}
+{'destino': 'Sandalia post quirurgica plana DEMA ', 'origen': 'Sandalia post quirurgica plana DEMA '}
+{'destino': 'Servicio de Guarda', 'origen': 'Servicio de Guarda'}
+{'destino': 'Servicios Prestados de Alquiler', 'origen': 'Servicios Prestados de Alquiler'}
+{'destino': 'Servicios Prestados de Alquiler', 'origen': 'Servicios Prestados de Alquiler.'}
+{'destino': 'Servicios Prestados de Alquiler.', 'origen': 'Servicios Prestados de Alquiler'}
+{'destino': 'Servicios Prestados de Alquiler.', 'origen': 'Servicios Prestados de Alquiler.'}
+{'destino': 'Silla Bingo + Spex', 'origen': 'Silla Bingo + Spex'}
+{'destino': 'Silla Clik', 'origen': 'Silla Clik'}
+{'destino': 'Silla Focus', 'origen': 'Silla Focus'}
+{'destino': 'Silla Lightning', 'origen': 'Silla Lightning'}
+{'destino': 'Silla Reach', 'origen': 'Silla Reach'}
+{'destino': 'Silla Rogue', 'origen': 'Silla Rogue'}
+{'destino': 'Silla Zebra Invento', 'origen': 'Silla Zebra Invento'}
+{'destino': 'Silla de aluminio con apoyacabezas', 'origen': 'Silla de aluminio con apoyacabezas'}
+{'destino': 'Silla de baño S/respaldo S/ apoya brazos', 'origen': 'Silla de baño S/respaldo S/ apoya brazos'}
+{'destino': 'Silla de baño S/respaldo S/ apoya brazos PLEGABLE', 'origen': 'Silla de baño S/respaldo S/ apoya brazos PLEGABLE'}
+{'destino': 'Silla de ruedas Pediatrica', 'origen': 'Silla de ruedas Pediatrica'}
+{'destino': 'Silla paseo - postura', 'origen': 'Silla paseo - postura'}
+{'destino': 'Silla reclinable con tilt ', 'origen': 'Silla reclinable con tilt '}
+{'destino': 'Soporte Rodilla Talle2', 'origen': 'Soporte Rodilla Talle2'}
+{'destino': 'Soporte para Pie Caido ', 'origen': 'Soporte para Pie Caido '}
+{'destino': 'TALONERA / GOMAEVA - DESCANSO', 'origen': 'TALONERA / GOMAEVA - DESCANSO'}
+{'destino': 'TALONERA / GOMAEVA - ESPOLÓN', 'origen': 'TALONERA / GOMAEVA - ESPOLÓN'}
+{'destino': 'TALONERA PARA DISMETRÍA/CORCHO-EVA', 'origen': 'TALONERA PARA DISMETRÍA/CORCHO-EVA'}
+{'destino': 'TALONERA PARA ESPOLON / SILICONA Di Feo', 'origen': 'TALONERA PARA ESPOLON / SILICONA Di Feo'}
+{'destino': 'TELEFONIA', 'origen': 'TELEFONIA'}
+{'destino': 'TOBILLERA ACORDONADA CON BALLENAS LATERALES - PTM', 'origen': 'Tobillera Acordonada con Ballenas Laterales PTM'}
+{'destino': 'TRUSA SIN PIERNA', 'origen': 'TRUSA SIN PIERNA'}
+{'destino': 'Tasa Estadística', 'origen': 'Tasa Estadística'}
+{'destino': 'Traje de Baño Gelform Talle 6', 'origen': 'Traje de Baño Gelform Talle 6'}
+{'destino': 'Traje spio ', 'origen': 'Traje spio '}
+{'destino': 'VARIAS', 'origen': 'VARIAS'}
+{'destino': 'VARIOS', 'origen': 'VARIOS'}
+{'destino': 'VARIOS', 'origen': 'varios'}
+{'destino': 'VAROS', 'origen': 'VAROS'}
+{'destino': 'VEHICULO PROPIO', 'origen': 'VEHICULO PROPIO'}
+{'destino': 'VENDA TIPO COBAN ANCHO 5', 'origen': 'VENDA TIPO COBAN ANCHO 5'}
+{'destino': 'VEP', 'origen': 'VEP'}
+{'destino': 'Valva AFO', 'origen': 'Valva AFO'}
+{'destino': 'Varios', 'origen': 'VARIOS'}
+{'destino': 'Varios', 'origen': 'varios'}
+{'destino': 'Venda Deportiva 10 x 3mts PTM ', 'origen': 'Venda Deportiva 10 x 3 mts PTM '}
+{'destino': 'Venda Deportiva 5cm x 3mts PTM', 'origen': 'Venda Deportiva 5cm x 3mts PTM'}
+{'destino': 'Venda Deportiva 7cm x 3mts PTM', 'origen': 'Venda Deportiva 7cm x 3mts PTM'}
+{'destino': 'Venda tipo coban 7,5cm x 4,5 Martorani', 'origen': 'Venda tipo coban 7,5cm x 4,5 Martorani'}
+{'destino': 'Zapatos de Niña o Varón 26 al 29', 'origen': 'Zapatos de Niña o Varón 26 al 29'}
+{'destino': '[MISVAC] Varios ALQUILERES', 'origen': '[MISVAC] Varios ALQUILERES'}
+{'destino': 'cama ortopèdica + colchòn de goma espumas + baranda', 'origen': 'cama ortopèdica + colchòn de goma espumas + baranda'}
+{'destino': 'cargas sindicales', 'origen': 'cargas sindicales'}
+{'destino': 'cario', 'origen': 'cario'}
+{'destino': 'cinta KINESIOTEX GOLD  rehavita negra', 'origen': 'cinta KINESIOTEX GOLD  rehavita negra'}
+{'destino': 'cochera', 'origen': 'cochera'}
+{'destino': 'dx', 'origen': 'dx'}
+{'destino': 'expensas', 'origen': 'expensas'}
+{'destino': 'fac', 'origen': 'fac'}
+{'destino': 'faja toracica masculina ELIL/ALFOLATEX T 4', 'origen': 'faja toracica masculina ELIL/ALFOLATEX T 4'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula DOC. GROISSO (par)', 'origen': 'ferula DOC. GROISSO (par)'}
+{'destino': 'ferula antiluxacion de cadera Run tec (class)', 'origen': 'ferula antiluxacion de cadera Run tec (class)'}
+{'destino': 'ferula digital de zimmer', 'origen': 'ferula digital de zimmer'}
+{'destino': 'flete', 'origen': 'flete'}
+{'destino': 'honorarios', 'origen': 'honorarios'}
+{'destino': 'internet', 'origen': 'internet'}
+{'destino': 'ortesis', 'origen': 'ortesis'}
+{'destino': 'oximetro', 'origen': 'oximetro'}
+{'destino': 'pantorrillera neoprene Stial', 'origen': 'pantorrillera neoprene Stial'}
+{'destino': 'productos de salon', 'origen': 'productos de salon'}
+{'destino': 'redondeo', 'origen': 'REDONDEO'}
+{'destino': 'redondeo', 'origen': 'redondeo'}
+{'destino': 'saldo', 'origen': 'saldo'}
+{'destino': 'seguro', 'origen': 'seguro'}
+{'destino': 'servicios de sanitizacion y limpieza', 'origen': 'servicios de sanitizacion y limpieza'}
+{'destino': 'silla', 'origen': 'Silla'}
+{'destino': 'silla', 'origen': 'silla'}
+{'destino': 'varios', 'origen': 'VARIOS'}
+{'destino': 'varios', 'origen': 'varios'}
+{'destino': 'varip', 'origen': 'varip'}
+{'destino': 'vcarios', 'origen': 'vcarios'}
+{'destino': 'venda currugada de 10 cm ELIL', 'origen': 'venda currugada de 10 cm ELIL'}
+{'destino': 'zalea 0,90 x 0,90 c/ argolla CEVAMED', 'origen': 'zalea 0,90 x 0,90 c/ argolla CEVAMED'}
+{'destino': 'zalea 0,90 x 0,90 c/ argolla CEVAMED', 'origen': 'zalea 0,90 x 0,90 c/ argolla CEVAMED'}
+{'destino': 'zalea 0,90 x 1,45 c/ argolla CEVAMED', 'origen': 'zalea 0,90 x 1,45 c/ argolla CEVAMED'}
+{'destino': '|0DRI10802| Soporte p/Torso Large.', 'origen': '|0DRI10802| Soporte p/Torso Large.'}
+{'destino': '|20TLT0018| Cubierta Schwalde Marathon 24\\".', 'origen': '|20TLT0018| Cubierta Schwalde Marathon 24".'}
+{'destino': '|580.N| Sueco semi elastizado c/plantilla super confort.', 'origen': '|580.N| Sueco semi elastizado c/plantilla super confort.'}
+{'destino': '|A824| Apoya Pies Standard.Derecho.', 'origen': '|A824| Apoya Pies Standard.Derecho.'}
+{'destino': '|A825| Apoya Pies Standard. Izquierdo.', 'origen': '|A825| Apoya Pies Standard. Izquierdo.'}

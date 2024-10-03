@@ -2,6 +2,7 @@
 import sys
 import time
 import requests
+import re
 # import copy
 from xmlrpc import client
 from threading import Thread
@@ -80,6 +81,49 @@ class CreateXMLRCP:
                     fields.append(field)
 
         return selects, many2one, one2many, many2many, fields
+
+    def __levenshtein_distance(self, s1, s2):
+        if len(s1) < len(s2):
+            return self.__levenshtein_distance(s2, s1)
+
+        # Si una de las cadenas está vacía, la distancia es la longitud de la otra
+        if len(s2) == 0:
+            return len(s1)
+
+        # Crear una matriz de la longitud de la segunda cadena más uno
+        previous_row = range(len(s2) + 1)
+
+        # Iterar sobre cada caracter de la primera cadena
+        for i, c1 in enumerate(s1):
+            current_row = [i + 1]
+
+            # Iterar sobre cada caracter de la segunda cadena
+            for j, c2 in enumerate(s2):
+                insertions = previous_row[j + 1] + 1
+                deletions = current_row[j] + 1
+                substitutions = previous_row[j] + (c1 != c2)
+                current_row.append(min(insertions, deletions, substitutions))
+
+            previous_row = current_row
+            return previous_row[-1]
+    
+    def __guardar_en_txt(self, datos, nombre_archivo):
+        """
+        Guarda los datos proporcionados en un archivo de texto.
+
+        :param datos: Cadena de texto o lista de líneas a guardar en el archivo.
+        :param nombre_archivo: Nombre del archivo donde se guardarán los datos.
+        """
+        
+        texto = '\n'.join(map(str, datos))
+
+        with open(nombre_archivo, 'w') as archivo:
+            # Si los datos son una lista, unirlos con saltos de línea
+            if isinstance(texto, list):
+                archivo.write('\n'.join(texto))
+            else:
+                archivo.write(texto)
+        print(f"Datos guardados en {nombre_archivo}")
 
     # ==============================================================
     # === Obtener IDs ===
@@ -613,25 +657,61 @@ class CreateXMLRCP:
 
     # === Update de campos del modelo ===
     def models_update(self, data_origen, data_destino):
-        data_origen_dict = {actualizacion['name'].strip(): [actualizacion['image'], actualizacion['image_medium'], actualizacion['image_small']] for actualizacion in data_origen}
-        c = 0
-        # for data_d in data_destino:
-        #     try:
-        #         if data_d['name'].strip() in data_origen_dict.keys():
-        #             print(c)
-        #             c = c+1
-        #             data_d['image_1920'] = data_origen_dict[data_d['name']][0]
-        #             data_d['image_1024'] = data_origen_dict[data_d['name']][1]
-        #             data_d['image_1920'] = data_origen_dict[data_d['name']][2]
-        #         else:
-        #             print(data_d)
-        #     except Exception as e:
-        #         print(e)
-        #         continue
+        encontrados = []
+        # corta = 0
+        # larga = 0
+        # media = 0
         
+        ids_o = set()
+        ids_d = set()
+        
+        for data_d in data_destino:
+            for data_o in data_origen:
+                destino = re.sub(r"[^a-zA-Z0-9]", "", data_d["name"])
+                origen = re.sub(r"[^a-zA-Z0-9]", "", data_o["name"])
+                
+                # 394 resultado con ids repetidas
+                # if destino.lower() == origen.lower():
+                #     if data_o['image_1920'] or data_o['image_1024'] or data_o['image_128']:
+                #         encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                #         print(f'encontrado: {data_d["name"]} --- {data_o["name"]}')
+                            # upd = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, "write", [[data_d['id']], {'image_1920': data_o['image_1920'], 'image_1024': data_o['image_1024'], 'image_128': data_o['image_128']}])
+                
+                # 259 resultado sin ids repetidas
+                if (destino.lower() == origen.lower()) and (data_o['id'] not in ids_o) and (data_d['id'] not in ids_d):
+                    if data_o['image'] or data_o['image_medium'] or data_o['image_small']:
+                        encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                        ids_d.add(data_d['id'])
+                        ids_o.add(data_o['id'])
+                        print(f'encontrado: {data_d["name"]} --- {data_o["name"]}')
+                        upd = self.models.execute_kw(self.dbname, self.userID, self.pwd, self.model, "write", [[data_d['id']], {'image_1920': data_o['image'], 'image_1024': data_o['image_medium'], 'image_128': data_o['image_small']}])
+                
+
+                # if (len(destino.lower()) <= 7 or len(origen.lower()) <= 7) and len(destino.lower()) - len(origen.lower()) <= 4:
+                #     if self.__levenshtein_distance(destino.lower(), origen.lower()) < 3:
+                #         encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                #         corta += 1
+                # elif (len(destino.lower()) <= 20 or len(origen.lower()) <= 20) and len(destino.lower()) - len(origen.lower()) <= 7:
+                #     if self.__levenshtein_distance(destino.lower(), origen.lower()) < 3:
+                #         encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                #         media += 1
+                # else:
+                #     if self.__levenshtein_distance(destino.lower(), origen.lower()) < 3:
+                #         encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                #         larga += 1
+
+
+                # if (self.__levenshtein_distance(destino.lower(), origen.lower()) < 4) and abs(len(destino.lower())-len(origen.lower())) < 3:
+                #     if data_d['id'] not in ids_d :
+                #         encontrados.append({"destino": data_d['name'], "origen": data_o['name']})
+                #         print(f'encontrado: {data_d["name"]} --- {data_o["name"]}')
+                #         ids_d.add(data_d['id'])
+                #         ids_o.add(data_o['id'])
                     
-            
+
+        # print(encontrados)
+        print(len(encontrados))
+        self.__guardar_en_txt(encontrados, 'resultados4.txt')
         
-            
         
 
